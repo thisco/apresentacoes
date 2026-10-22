@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governança de IA</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+.arq svg{width:100%;height:auto;display:block}
+.camadas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:14px;border:1px solid var(--tinta)}
+.camadas > div{padding:12px 14px}
+.camadas > div + div{border-left:1px solid var(--tinta)}
+.camadas .rotulo{display:block;margin-bottom:4px}
+.camadas h3{margin:0 0 4px;font-size:15px}
+.camadas p{margin:0;font-size:12.5px;color:var(--tinta-2)}
+.camadas .n1{border-top:5px solid var(--gov)}
+.camadas .n2{border-top:5px solid var(--gov-escuro)}
+.camadas .n3{border-top:5px solid var(--ambar)}
+
+.prova{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:44px;align-items:start}
+.placar{display:flex;align-items:baseline;gap:14px}
+.placar .num{font-size:72px}
+.cen{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;font-size:12.5px;padding:4px 0}
+.cen .trilho{display:flex;gap:2px}
+.cen .trilho i{flex:1;height:14px;background:var(--verde)}
+.cen .trilho i.g{background:var(--risco)}
+.cen .v{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--tinta-2);text-align:right}
+.achados{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.achado{padding:12px 14px;background:#fff;border:1px solid var(--regra)}
+.achado code{display:block;font-size:11.5px;background:var(--tinta);color:#E8EDF2;padding:6px 8px;margin:6px 0;white-space:pre-wrap;word-break:break-word}
+.achado h4{margin:0;font-size:14px;letter-spacing:-.01em}
+.achado p{margin:0;font-size:12.5px;color:var(--tinta-2)}
+
+.aneis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;align-items:stretch}
+.anel{padding:14px 16px;position:relative}
+.anel + .anel{border-left:1px dashed var(--tinta-3)}
+.anel h3{margin:0 0 2px;font-size:17px}
+.anel .quando{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3)}
+.anel ol{margin:10px 0 0;padding:0;list-style:none}
+.anel li{font-size:13px;padding:6px 8px;margin-bottom:4px;background:#fff;border-left:4px solid var(--gov)}
+.anel li b{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3);margin-right:6px}
+.anel.a1{background:var(--gov-claro)}
+.anel.a2{background:#E4EBF5}
+.anel.a3{background:var(--papel-3)}
+.anel.a3 li{border-left-color:var(--tinta-3)}
+
+.piloto svg{width:100%;height:auto;display:block}
+
+@media (max-width:1180px){
+  .camadas,.prova,.aneis,.achados{grid-template-columns:1fr}
+  .camadas > div + div,.anel + .anel{border-left:0;border-top:1px solid var(--tinta)}
+  .placar .num{font-size:52px}
+}
+</style>
+</head>
+<body>
+<main class="folha">
+  <nav id="nav" data-atual="04"></nav>
+
+  <header class="topo">
+    <div>
+      <p class="sobre">04 · governance · governar o uso de IA na superintendência</p>
+      <h1>Governança como infraestrutura, não como documento</h1>
+      <p>Toda chamada a modelo, do assistente de código ao agente em produção, passa por um ponto de controle único. A política vale na chamada, e não na auditoria do mês seguinte. Quem consome pela plataforma herda os controles: para o departamento, aderir é trocar uma URL.</p>
+    </div>
+    <dl class="legenda" aria-label="Legenda">
+      <dt><span class="tag nuarq">NUARQ</span></dt><dd>dono do padrão, das contas e da governança</dd>
+      <dt><span class="tag plat">plataforma</span></dt><dd>impõe a regra na chamada</dd>
+      <dt><span class="tag depto">departamentos</span></dt><dd>executam com autonomia</dd>
+      <dt><span class="tag ok">passa</span> <span class="tag gap">gap</span></dt><dd>resultado da avaliação</dd>
+    </dl>
+  </header>
+
+  <div class="pergunta">
+    <div><span class="rotulo">a pergunta desta prancha</span><q>Quem usa IA, com que dado e a que custo: dá para saber na hora?</q></div>
+    <div class="minimapa" aria-label="A faixa de governança, sob todo o ciclo">
+      <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i>
+      <span class="gov on"></span>
+    </div>
+  </div>
+
+  <!-- ── arquitetura ───────────────────────────────────────────────────── -->
+  <section class="secao arq">
+    <h2>Um ponto de controle, três camadas de modelo</h2>
+    <p class="sub">A arquitetura é agnóstica de fornecedor: descreve capacidades, e o produto da PoC é só a implementação de referência. O padrão é o modelo soberano; a fronteira SaaS entra por exceção justificada.</p>
+    <svg viewBox="0 0 1580 420" role="img" aria-labelledby="ga-t">
+      <title id="ga-t">Consumidores com chave virtual passam pelo gateway, que aplica identidade, catálogo, orçamento, guardrails e auditoria, e roteia para três camadas de modelo</title>
+      <defs>
+        <marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A1A2F"/></marker>
+      </defs>
+      <!-- consumo -->
+      <text x="20" y="28" font-size="11" class="mono" fill="#7A8A9D">CONSUMO · DEPARTAMENTOS</text>
+      <g font-size="14" font-weight="600" fill="#0A1A2F">
+        <rect x="20" y="42" width="290" height="50" fill="#fff" stroke="#B06F12" stroke-width="2"/><text x="36" y="73">Assistentes de codificação</text>
+        <rect x="20" y="104" width="290" height="50" fill="#fff" stroke="#B06F12" stroke-width="2"/><text x="36" y="135">Chats e copilotos</text>
+        <rect x="20" y="166" width="290" height="50" fill="#fff" stroke="#B06F12" stroke-width="2"/><text x="36" y="197">Aplicações dos produtos</text>
+        <rect x="20" y="228" width="290" height="50" fill="#fff" stroke="#B06F12" stroke-width="2"/><text x="36" y="259">Agentes e integrações</text>
+      </g>
+      <!-- chaves -->
+      <g stroke="#0A1A2F" stroke-width="2" fill="none" marker-end="url(#g1)">
+        <path d="M310 67 C380 67 380 150 446 150"/><path d="M310 129 C380 129 380 158 446 158"/>
+        <path d="M310 191 C380 191 380 166 446 166"/><path d="M310 253 C380 253 380 174 446 174"/>
+      </g>
+      <rect x="320" y="290" width="120" height="34" fill="#0A1A2F"/><text x="380" y="312" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">chave virtual</text>
+      <text x="380" y="342" text-anchor="middle" font-size="11.5" fill="#43556B">por pessoa · equipe</text><text x="380" y="357" text-anchor="middle" font-size="11.5" fill="#43556B">· projeto</text>
+      <!-- gateway -->
+      <rect x="450" y="40" width="560" height="250" fill="#1351B4"/>
+      <text x="474" y="76" font-size="24" font-weight="800" fill="#fff">Gateway de IA</text>
+      <text x="474" y="98" font-size="13" fill="#DCE7F8">a política vale na chamada · operado pela NUARQ</text>
+      <g font-size="13.5" font-weight="700" fill="#fff">
+        <rect x="474" y="118" width="160" height="70" fill="#0C3A85"/><text x="488" y="146">Identidade</text><text x="488" y="166" font-weight="400" font-size="12" fill="#DCE7F8">e perfis</text>
+        <rect x="642" y="118" width="160" height="70" fill="#0C3A85"/><text x="656" y="146">Catálogo</text><text x="656" y="166" font-weight="400" font-size="12" fill="#DCE7F8">allowlist de modelos</text>
+        <rect x="810" y="118" width="180" height="70" fill="#0C3A85"/><text x="824" y="146">Orçamento</text><text x="824" y="166" font-weight="400" font-size="12" fill="#DCE7F8">teto e corte automático</text>
+        <rect x="474" y="196" width="244" height="70" fill="#0C3A85"/><text x="488" y="224">Guardrails</text><text x="488" y="244" font-weight="400" font-size="12" fill="#DCE7F8">mascara dado pessoal</text>
+        <rect x="726" y="196" width="264" height="70" fill="#0C3A85"/><text x="740" y="224">Auditoria</text><text x="740" y="244" font-weight="400" font-size="12" fill="#DCE7F8">trilha imutável, custo por token</text>
+      </g>
+      <!-- modelos -->
+      <g stroke="#0A1A2F" stroke-width="2" fill="none" marker-end="url(#g1)">
+        <path d="M1010 120 C1070 120 1070 70 1124 70"/><path d="M1010 165 C1070 165 1070 165 1124 165"/><path d="M1010 210 C1070 210 1070 260 1124 260"/>
+      </g>
+      <text x="1128" y="28" font-size="11" class="mono" fill="#7A8A9D">MODELOS · DO MAIS SOBERANO AO MENOS</text>
+      <rect x="1128" y="40" width="430" height="62" fill="#fff" stroke="#1351B4" stroke-width="3"/>
+      <text x="1146" y="66" font-size="15" font-weight="800" fill="#0A1A2F">Modelos no ambiente próprio</text>
+      <text x="1146" y="88" font-size="12.5" fill="#43556B">SerproLLM e modelos abertos · soberania · <tspan font-weight="700" fill="#1351B4">padrão</tspan></text>
+      <rect x="1128" y="134" width="430" height="62" fill="#fff" stroke="#0A1A2F" stroke-width="2"/>
+      <text x="1146" y="160" font-size="15" font-weight="800" fill="#0A1A2F">Modelo em nuvem homologada</text>
+      <text x="1146" y="182" font-size="12.5" fill="#43556B">contas nos provedores, atrás do gateway</text>
+      <rect x="1128" y="228" width="430" height="62" fill="#fff" stroke="#8C96A3" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="1146" y="254" font-size="15" font-weight="800" fill="#0A1A2F">Provedor SaaS de fronteira</text>
+      <text x="1146" y="276" font-size="12.5" fill="#43556B">por exceção justificada · retenção zero</text>
+      <!-- apoio -->
+      <rect x="450" y="300" width="560" height="44" fill="#fff" stroke="#C3CDD8"/>
+      <text x="470" y="327" font-size="12.5" fill="#43556B">apoio: observabilidade · cofre de segredos · catálogo corporativo de IA · registro de governança</text>
+      <!-- planos -->
+      <g font-size="13">
+        <rect x="20" y="370" width="500" height="40" fill="#F4F7FA" stroke="#0A1A2F"/><text x="36" y="395"><tspan font-weight="800">Uso</tspan> · quem usa não configura</text>
+        <rect x="540" y="370" width="500" height="40" fill="#F4F7FA" stroke="#0A1A2F"/><text x="556" y="395"><tspan font-weight="800">Administração</tspan> · quem configura não apaga a trilha</text>
+        <rect x="1060" y="370" width="498" height="40" fill="#F4F7FA" stroke="#0A1A2F"/><text x="1076" y="395"><tspan font-weight="800">Observação</tspan> · quem audita não depende de quem opera</text>
+      </g>
+    </svg>
+    <div class="camadas">
+      <div class="n1"><span class="rotulo">define</span><h3>NUARQ</h3><p>Arquitetura de referência, contas multiprovedor, catálogo e políticas, orçamento único, papéis. Dona do padrão, e não da fila de aprovações.</p></div>
+      <div class="n2"><span class="rotulo">impõe</span><h3>Plataforma</h3><p>O gateway aplica perfil, teto e guardrail em toda chamada. Ninguém precisa lembrar da regra para ela valer.</p></div>
+      <div class="n3"><span class="rotulo">executa</span><h3>Departamentos</h3><p>Usam com autonomia o modelo, a ferramenta e o agente que o catálogo permite. Aderir é trocar uma URL.</p></div>
+    </div>
+  </section>
+
+  <!-- ── a prova ───────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Não presumimos: 45 casos executados</h2>
+    <p class="sub">A PoC roda o gateway em Docker local. A avaliação testou oito cenários, e os gaps foram achados por nós antes de qualquer auditoria.</p>
+    <div class="prova">
+      <div>
+        <div class="placar"><span class="num">41<small>de 45 passam</small></span></div>
+        <p class="sub" style="margin:4px 0 14px">4 gaps, todos documentados. O mais sério: reconhecedores de dado pessoal em inglês geram falso-positivo em português.</p>
+        <div class="cen"><span>Agentes e tool calling</span><span class="trilho"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="v">7/7</span></div>
+        <div class="cen"><span>Tooling</span><span class="trilho"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="g"></i></span><span class="v">8/9</span></div>
+        <div class="cen"><span>Skills</span><span class="trilho"><i></i><i></i><i></i><i></i><i></i><i class="g"></i></span><span class="v">5/6</span></div>
+        <div class="cen"><span>Vector stores</span><span class="trilho"><i></i><i></i><i></i><i></i><i></i></span><span class="v">5/5 ¹</span></div>
+        <div class="cen"><span>Guardrails</span><span class="trilho"><i></i><i></i><i></i><i></i><i class="g"></i></span><span class="v">4/5</span></div>
+        <div class="cen"><span>Policies</span><span class="trilho"><i></i><i></i><i></i><i></i></span><span class="v">4/4</span></div>
+        <div class="cen"><span>MCP</span><span class="trilho"><i></i><i></i><i></i><i></i></span><span class="v">4/4</span></div>
+        <div class="cen"><span>Decisão tipada</span><span style="font-size:12px;color:var(--tinta-2)">o mecanismo passa; o conteúdo reprova</span><span class="v">—</span></div>
+        <p class="sub" style="margin-top:8px;font-size:11.5px">¹ os cinco casos passam, mas um deles revelou uma limitação que entrou na lista de gaps.</p>
+      </div>
+      <div class="achados">
+        <div class="achado"><h4>O CPF nunca chegou ao modelo</h4><code>"CPF 123.456.789-09" → "&lt;BR_CPF&gt;"</code><p>Mascarado no gateway, inclusive dentro do argumento de uma ferramenta chamada pelo agente.</p></div>
+        <div class="achado"><h4>Modelo fora do perfil: negado</h4><code>403 — team not allowed to access model</code><p>Cada perfil vê só o catálogo que lhe cabe. Na PoC, a equipe-dev tem 5 modelos.</p></div>
+        <div class="achado"><h4>Orçamento estourado: cortado</h4><code>HTTP 429 · custo 0.6 / teto 0.5</code><p>O teto é aplicado na chamada. Na PoC, um perfil restrito tem US$ 1 por mês.</p></div>
+        <div class="achado"><h4>O agente disse que deu certo</h4><code>4 ações bloqueadas · resposta: "sucesso"</code><p>Só o log imutável revelou. É por isso que quem verifica não pode depender de quem executa.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── anéis ─────────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Começar pelo básico e evoluir: 12 pilares em 3 anéis</h2>
+    <p class="sub">Não se liga tudo de uma vez. O primeiro anel já dá controle de quem usa, quanto custa e o que foi feito; os outros entram conforme a maturidade.</p>
+    <div class="aneis">
+      <div class="anel a1"><h3>Fundação</h3><span class="quando">fase 1 · 1 a 3 meses</span>
+        <ol><li><b>P1</b>Identidade e perfis</li><li><b>P2</b>Controle de uso e custo (FinOps de IA)</li><li><b>P3</b>Catálogo de modelos e roteamento</li><li><b>P4</b>Auditoria e observabilidade</li></ol></div>
+      <div class="anel a2"><h3>Proteção</h3><span class="quando">fase 2 · 3 a 9 meses</span>
+        <ol><li><b>P5</b>Guardrails</li><li><b>P6</b>LGPD e privacidade</li><li><b>P7</b>Segurança</li><li><b>P8</b>Fornecedores e contratos</li></ol></div>
+      <div class="anel a3"><h3>Maturidade</h3><span class="quando">fase 3 · 9 a 18 meses</span>
+        <ol><li><b>P9</b>Avaliação e qualidade</li><li><b>P10</b>Risco e conformidade formal</li><li><b>P11</b>Cultura e capacitação</li><li><b>P12</b>IA como serviço</li></ol></div>
+    </div>
+  </section>
+
+  <!-- ── piloto ────────────────────────────────────────────────────────── -->
+  <section class="secao piloto">
+    <h2>Piloto de 90 dias, com gate: não é mandato aberto</h2>
+    <p class="sub">De 2 a 3 equipes com demanda real, dados públicos e o modelo institucional como padrão. No dia 90 o gate decide; se não fechar, o piloto encerra, sem custo perpétuo.</p>
+    <svg viewBox="0 0 1580 230" role="img" aria-labelledby="pl-t">
+      <title id="pl-t">Linha do tempo do piloto: partida no dia 0, operação com 2 a 3 equipes, gate no dia 90 que leva à produção ou ao encerramento</title>
+      <defs><marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A1A2F"/></marker></defs>
+      <line x1="40" y1="100" x2="1060" y2="100" stroke="#0A1A2F" stroke-width="3"/>
+      <circle cx="60" cy="100" r="10" fill="#0A1A2F"/>
+      <text x="60" y="70" text-anchor="middle" font-size="14" font-weight="800" fill="#0A1A2F">dia 0</text>
+      <g font-size="12.5" fill="#43556B"><text x="40" y="134">versão pinada</text><text x="40" y="152">hardening aplicado</text><text x="40" y="170">backup testado</text><text x="40" y="188">runbook com papéis</text></g>
+      <rect x="260" y="80" width="660" height="40" fill="#D3E0F5" stroke="#1351B4"/>
+      <text x="590" y="105" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0C3A85">2 a 3 equipes de departamentos usando pelo gateway · NUARQ opera e mede</text>
+      <text x="590" y="150" text-anchor="middle" font-size="12.5" fill="#43556B">os 45 casos viram a regressão de cada upgrade</text>
+      <rect x="1050" y="60" width="160" height="80" fill="#0A1A2F" transform="rotate(0)"/>
+      <text x="1130" y="92" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">dia 90 · gate</text>
+      <g font-size="11.5" fill="#C9D4E2" text-anchor="middle"><text x="1130" y="112">custo e adoção reais</text><text x="1130" y="127">incidentes · plano B</text></g>
+      <g stroke-width="2.5" fill="none" marker-end="url(#p1)" stroke="#0A1A2F">
+        <path d="M1210 85 C1260 85 1260 50 1300 50"/><path d="M1210 115 C1260 115 1260 160 1300 160"/>
+      </g>
+      <rect x="1304" y="22" width="260" height="58" fill="#D5EBDF" stroke="#1E7A4C" stroke-width="2"/>
+      <text x="1318" y="46" font-size="14" font-weight="800" fill="#1E7A4C">fecha → produção</text>
+      <text x="1318" y="66" font-size="12" fill="#43556B">com alta disponibilidade e equipe</text>
+      <rect x="1304" y="132" width="260" height="58" fill="#F4DAD5" stroke="#A83A2C" stroke-width="2"/>
+      <text x="1318" y="156" font-size="14" font-weight="800" fill="#A83A2C">não fecha → encerra</text>
+      <text x="1318" y="176" font-size="12" fill="#43556B">sem custo perpétuo</text>
+    </svg>
+    <p class="sub">Regra que vale do piloto em diante: <b>sem dono, não entra em produção</b>. Cada caso de uso tem um dono no departamento; a plataforma tem um dono na NUARQ.</p>
+  </section>
+
+  <a class="ponte volta-inicio" href="index.html#decisoes">
+    <div><span class="rotulo">fecha o ciclo · volta ao 00</span><b>Governança de IA não é freio. É a infraestrutura que permite acelerar com controle.</b><span class="t">Com o quem (01), o como (02), o onde (03) e o controle (04) definidos, sobram três decisões para a superintendência.</span></div>
+    <span class="ir">As três decisões →</span>
+  </a>
+
+  <footer class="rodape">
+    <span>Fontes: <code>serpro-cloud-ia-governance/docs/governanca/arquitetura-governanca-ia.md</code> · <code>docs/apresentacao/apresentacao-executiva.html</code> · <code>avaliacao/resultados/matriz-consolidada.md</code></span>
+    <span>Prévia 13/10/2026</span>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

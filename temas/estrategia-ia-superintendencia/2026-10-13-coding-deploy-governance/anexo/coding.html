@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coding com IA</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+/* ── raias: pessoa, agente, NUARQ × nove fases ─────────────────────────── */
+.raias{display:grid;grid-template-columns:170px repeat(9,minmax(0,1fr));margin-top:6px;border-top:2px solid var(--tinta)}
+.raias .fase{padding:8px 6px 8px;font-size:12px;font-weight:700;border-bottom:1px solid var(--tinta);letter-spacing:-.005em}
+.raias .fase span{display:block;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:10.5px;color:var(--tinta-3)}
+.raias .canto{border-bottom:1px solid var(--tinta)}
+.raia{padding:12px 12px 12px 0;font-size:12.5px;font-weight:700;border-bottom:1px solid var(--regra);display:flex;flex-direction:column;justify-content:center}
+.raia small{font-weight:400;color:var(--tinta-2);font-size:11.5px}
+.raia.depto{border-left:6px solid var(--ambar);padding-left:10px}
+.raia.agente{border-left:6px solid var(--incerto);padding-left:10px}
+.raia.nuarq{border-left:6px solid var(--gov);padding-left:10px}
+.cela{border-bottom:1px solid var(--regra);border-left:1px dashed var(--regra);padding:8px 5px;min-height:84px;display:flex;flex-direction:column;gap:5px;justify-content:center}
+.bloco{font-size:11.5px;line-height:1.3;padding:6px 7px;border-radius:2px}
+.bloco b{display:block;font-size:12px}
+.bloco.depto{background:var(--ambar-claro);border:1px solid var(--ambar);color:#5A3A09}
+.bloco.agente{background:#fff;border:1px solid var(--incerto);color:var(--tinta-2)}
+.bloco.nuarq{background:var(--gov);color:#fff}
+.bloco.trava{background:var(--tinta);color:#fff}
+.bloco.portao{background:#fff;border:2px solid var(--tinta);color:var(--tinta)}
+.retorno{grid-column:2/-1;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--tinta-2);padding:8px 0}
+.retorno svg{flex:none}
+
+/* ── tiers ─────────────────────────────────────────────────────────────── */
+.tiers{display:grid;grid-template-columns:170px repeat(9,minmax(0,1fr));align-items:center}
+.tiers > div{padding:8px 0;border-top:1px solid var(--regra)}
+.tiers .nome b{font-size:14px;display:block}
+.tiers .nome small{font-size:11.5px;color:var(--tinta-2)}
+.pt{justify-self:center;width:16px;height:16px;border-radius:50%;background:var(--tinta)}
+.pt.leve{background:transparent;border:2px solid var(--tinta)}
+.pt.nao{background:transparent;border:0}
+.pt.adv{background:var(--gov);box-shadow:0 0 0 3px var(--gov-claro)}
+.tiers .pt{margin:0 auto}
+
+/* ── impede × orienta ─────────────────────────────────────────────────── */
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px}
+.barra{display:flex;height:40px;border:1px solid var(--tinta);margin:10px 0 8px}
+.barra div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden}
+.barra .b1{background:var(--tinta);color:#fff;flex:1 0 34px}
+.barra .b2{background:var(--gov-claro);color:var(--gov-escuro);flex:5}
+.barra .b3{flex:42;color:var(--ambar);background:repeating-linear-gradient(135deg,#fff 0 6px,#FBF3E6 6px 7px)}
+.mec{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:baseline;font-size:13px;padding:6px 0;border-top:1px solid var(--regra);color:var(--tinta-2)}
+.mec .tag{justify-self:start}
+.mec code{font-size:11.5px;color:var(--tinta)}
+
+.harness{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+.harness span{font-family:"JetBrains Mono",monospace;font-size:12px;padding:6px 10px;border:1px dashed var(--tinta-3);background:#fff}
+.funil{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tinta-2)}
+.funil code{background:var(--gov);color:#fff;padding:6px 10px;font-size:12.5px}
+
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--tinta)}
+.nums > div{padding:12px 14px 10px 0}
+.nums p{margin:4px 0 0;font-size:12.5px;color:var(--tinta-2)}
+
+@media (max-width:1180px){
+  .raias,.tiers{grid-template-columns:1fr}
+  .raias .fase,.raias .canto,.tiers .pt{display:none}
+  .cela{border-left:0;min-height:0}
+  .cela:empty{display:none}
+  .retorno{grid-column:1}
+  .duas,.nums{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<main class="folha">
+  <nav id="nav" data-atual="02"></nav>
+
+  <header class="topo">
+    <div>
+      <p class="sobre">02 · coding · processo de desenvolvimento fim a fim com IA</p>
+      <h1>Processo próprio, ferramenta descartável</h1>
+      <p>A pessoa do departamento decide o que construir e assina a spec. O agente executa. A NUARQ define o padrão e confere o resultado. A governança fica em arquivo no repositório, e não na configuração da ferramenta, por isso o processo sobrevive à troca de agente.</p>
+    </div>
+    <dl class="legenda" aria-label="Legenda">
+      <dt><span class="tag depto">pessoa · Builder</span></dt><dd>departamento: decide e assina</dd>
+      <dt><span class="tag validar">agente</span></dt><dd>qualquer harness: executa</dd>
+      <dt><span class="tag nuarq">NUARQ</span></dt><dd>padrão e verificação</dd>
+      <dt><span class="tag trava">trava</span></dt><dd>código fora do modelo: impede</dd>
+    </dl>
+  </header>
+
+  <div class="pergunta">
+    <div><span class="rotulo">a pergunta desta prancha</span><q>Como garantir que o que o agente escreveu é o que a gente quis?</q></div>
+    <div class="minimapa" aria-label="Etapas 1 a 4 do ciclo">
+      <i class="on">1</i><i class="on">2</i><i class="on">3</i><i class="on">4</i><i>5</i><i>6</i><i>7</i>
+      <span class="gov"></span>
+    </div>
+  </div>
+
+  <!-- ── o fluxo em raias ──────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Nove fases, três raias: quem faz cada passo</h2>
+    <p class="sub">É o ciclo do <code>sdd-lifecycle</code>, o mesmo que a constituição chama de fluxo mínimo de qualquer entrega. Os blocos de borda grossa são portões: ali uma pessoa decide, e nada passa sem a assinatura dela.</p>
+    <div class="raias" role="table" aria-label="Fases do ciclo por responsável">
+      <div class="canto"></div>
+      <div class="fase"><span>0</span>Contexto</div>
+      <div class="fase"><span>1</span>Spec</div>
+      <div class="fase"><span>2</span>Gate de arquitetura</div>
+      <div class="fase"><span>3</span>Checkpoint</div>
+      <div class="fase"><span>4</span>Plano</div>
+      <div class="fase"><span>5</span>Branch</div>
+      <div class="fase"><span>6</span>TDD</div>
+      <div class="fase"><span>7</span>Verificação</div>
+      <div class="fase"><span>8</span>Encerramento</div>
+
+      <div class="raia depto">Pessoa<small>Builder do departamento</small></div>
+      <div class="cela"><div class="bloco depto"><b>confirma o tier</b>na dúvida, o mais alto</div></div>
+      <div class="cela"><div class="bloco depto"><b>diz o quê e por quê</b></div></div>
+      <div class="cela"><div class="bloco portao"><b>aprova ADR</b>se a mudança é destrutiva</div></div>
+      <div class="cela"><div class="bloco portao"><b>assina a spec</b>aprovado por, em</div></div>
+      <div class="cela"></div>
+      <div class="cela"></div>
+      <div class="cela"><div class="bloco depto"><b>decide</b>quando trava, volta à spec</div></div>
+      <div class="cela"></div>
+      <div class="cela"><div class="bloco portao"><b>aprova o merge</b></div></div>
+
+      <div class="raia agente">Agente<small>Claude Code, Codex, Kiro…</small></div>
+      <div class="cela"><div class="bloco agente"><b>lê</b>constituição e memória</div></div>
+      <div class="cela"><div class="bloco agente"><b>escreve a spec</b>como delta</div></div>
+      <div class="cela"><div class="bloco agente">propõe o ADR</div></div>
+      <div class="cela"></div>
+      <div class="cela"><div class="bloco agente"><b>planeja</b>completo ou leve</div></div>
+      <div class="cela"><div class="bloco agente">isola a branch</div></div>
+      <div class="cela"><div class="bloco agente"><b>teste primeiro</b>depois o código</div></div>
+      <div class="cela"><div class="bloco agente">cola a evidência no plano</div></div>
+      <div class="cela"><div class="bloco agente">CHANGELOG e memória</div></div>
+
+      <div class="raia nuarq">NUARQ<small>padrão, trava e verificação</small></div>
+      <div class="cela"><div class="bloco nuarq"><b>constituição</b>8 princípios</div></div>
+      <div class="cela"><div class="bloco nuarq"><b>portal</b>prática certa para o caso</div></div>
+      <div class="cela"><div class="bloco nuarq">gate de arquitetura</div></div>
+      <div class="cela"></div>
+      <div class="cela"></div>
+      <div class="cela"><div class="bloco trava"><b>hook</b>a governança não se autoedita</div></div>
+      <div class="cela"></div>
+      <div class="cela"><div class="bloco nuarq"><b>revisão adversarial</b>contra a spec</div><div class="bloco trava"><b>CI</b>normas · governança · segredos</div></div>
+      <div class="cela"><div class="bloco nuarq">o achado vira regra</div></div>
+
+      <div class="retorno">
+        <svg width="34" height="18" viewBox="0 0 34 18" aria-hidden="true"><path d="M32 3 H6 a4 4 0 0 0 0 8 H14" fill="none" stroke="#0A1A2F" stroke-width="2"/><path d="M12 7 l5 4 -5 4" fill="none" stroke="#0A1A2F" stroke-width="2"/></svg>
+        Se aparece bloqueio estrutural no TDD, o trabalho volta à fase 1. O agente não improvisa uma arquitetura nova no meio do código.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── tiers ─────────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Rigor proporcional ao risco</h2>
+    <p class="sub">O Tier 0 vai direto, e o rigor só aparece onde aparece o risco. É isso que deixa o processo rápido: o mesmo ciclo, com mais ou menos fases conforme o tamanho do estrago possível.</p>
+    <div class="tiers">
+      <div class="nome"></div>
+      <div class="rotulo" style="text-align:center">0</div><div class="rotulo" style="text-align:center">1</div><div class="rotulo" style="text-align:center">2</div><div class="rotulo" style="text-align:center">3</div><div class="rotulo" style="text-align:center">4</div><div class="rotulo" style="text-align:center">5</div><div class="rotulo" style="text-align:center">6</div><div class="rotulo" style="text-align:center">7</div><div class="rotulo" style="text-align:center">8</div>
+      <div class="nome"><b>Tier 0</b><small>trivial: texto, ajuste</small></div>
+      <span class="pt"></span><span class="pt nao"></span><span class="pt nao"></span><span class="pt nao"></span><span class="pt nao"></span><span class="pt nao"></span><span class="pt"></span><span class="pt leve"></span><span class="pt"></span>
+      <div class="nome"><b>Tier 1</b><small>pequeno: correção, ajuste local</small></div>
+      <span class="pt"></span><span class="pt leve"></span><span class="pt nao"></span><span class="pt nao"></span><span class="pt leve"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span>
+      <div class="nome"><b>Tier 2</b><small>estrutural: feature, schema</small></div>
+      <span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt"></span><span class="pt adv"></span><span class="pt"></span>
+    </div>
+    <p class="sub" style="margin-top:10px"><span class="pt" style="display:inline-block;vertical-align:middle;width:12px;height:12px"></span> fase completa · <span class="pt leve" style="display:inline-block;vertical-align:middle;width:12px;height:12px"></span> fase leve · <span class="pt adv" style="display:inline-block;vertical-align:middle;width:12px;height:12px"></span> revisão adversarial com veredito por requisito</p>
+  </section>
+
+  <!-- ── impede × orienta, e o agnóstico ───────────────────────────────── -->
+  <section class="secao">
+    <div class="duas">
+      <div>
+        <h2>O que impede e o que orienta</h2>
+        <p class="sub">Das 48 práticas do portal, uma bloqueia, cinco avisam e 42 orientam. É deliberado: um portão que reprova por julgamento ensina o time a contorná-lo. Trava só onde o erro é irreversível.</p>
+        <div class="barra" aria-label="1 bloqueia, 5 avisam, 42 orientam"><div class="b1">1</div><div class="b2">5 avisam</div><div class="b3">42 orientam</div></div>
+        <div class="mec"><span class="tag trava">bloqueia</span><span>editar migration já aplicada <code>DAD-01</code>; o merge não passa</span></div>
+        <div class="mec"><span class="tag trava">bloqueia</span><span>agente editando a própria governança: hook por ferramenta, <code>verificar_pr.py</code> no CI</span></div>
+        <div class="mec"><span class="tag plat">avisa</span><span>jobs <code>normas-do-pr</code>, <code>governanca</code>, <code>segredos</code> no GitLab</span></div>
+        <div class="mec"><span class="tag orienta">orienta</span><span>prática, receita e skill, lidas pelo agente em Markdown e JSON</span></div>
+      </div>
+      <div>
+        <h2>Troca a ferramenta, fica o processo</h2>
+        <p class="sub">A constituição, as skills e a memória moram no repositório. Cada harness lê o mesmo <code>AGENTS.md</code> pelo seu mecanismo nativo.</p>
+        <div class="harness"><span>Claude Code</span><span>Codex</span><span>Antigravity</span><span>Kiro</span><span>Opencode</span></div>
+        <div class="funil"><span>todos leem</span><code>AGENTS.md · constituição · skills</code></div>
+        <p class="sub" style="margin-top:14px">No experimento F0, a mesma spec rodou em Claude Code, Codex e Antigravity: <b>60 de 60 execuções aprovadas</b>. O custo de uma sessão variou de 300 a 700 mil tokens, o que mostra por que o orçamento precisa de teto (prancha 01).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── evidência e ativos ────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Não é tese: já roda</h2>
+    <p class="sub">O método nasceu num produto real em produção, o Catálogo SGD Multinuvem, e virou o portal de padrões da NUARQ.</p>
+    <div class="nums">
+      <div><div class="num">6<small>provedores</small></div><p>em produção no Catálogo SGD, com o mesmo método</p></div>
+      <div><div class="num">1000+<small>testes</small></div><p>mais de 35 ADRs e mais de 90 planos no mesmo repositório</p></div>
+      <div><div class="num">0<small>chave estática</small></div><p>no CI/CD: OIDC federado com os provedores</p></div>
+      <div><div class="num">48<small>práticas</small></div><p>em 12 domínios, 185 referências conferidas na fonte, 6 skills publicadas</p></div>
+    </div>
+  </section>
+
+  <a class="ponte" href="deploy.html">
+    <div><span class="rotulo">próxima · 03 deploy</span><b>Código revisado ainda não é serviço no ar.</b><span class="t">O merge entrega um artefato confiável. Falta levá-lo à nuvem certa, pelo mesmo caminho para todo departamento, e mantê-lo de pé.</span></div>
+    <span class="ir">03 Deploy →</span>
+  </a>
+
+  <footer class="rodape">
+    <span>Fontes: <code>sdd-lifecycle/README.md</code> · <code>padroes-engenharia/constituicao/padrao-v1.0.md</code> · <code>docs/specs/2026-10-08-f1-enxuta-delta.md</code> · deck 02/07/2026 (caso SGD)</span>
+    <span>Prévia 13/10/2026</span>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

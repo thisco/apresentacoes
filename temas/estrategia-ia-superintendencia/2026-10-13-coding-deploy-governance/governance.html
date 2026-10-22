@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governança de IA</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="6"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Acesso, custo e segurança da IA sob controle, na hora</h1>
+      <p class="sub">Chats, aplicações e agentes com LLM chamam o modelo pelo gateway da NUARQ, que homologa os modelos e gera as contas. A regra vale na hora da chamada. Assistentes de código ficam fora: usam as contas corporativas dos fornecedores.</p>
+    </div>
+    <div class="chave gov"><b>41 de 45</b><span>casos aprovados na prova de conceito; os 4 gaps foram achados por nós</span></div>
+  </header>
+
+  <section class="palco" aria-label="O gateway e as provas">
+    <svg viewBox="0 0 1488 452" role="img" aria-labelledby="t4">
+      <title id="t4">Chats, aplicações e agentes dos departamentos passam pelo gateway operado pela NUARQ, que aplica perfil, catálogo, teto, mascaramento e trilha, e roteia para modelos próprios, nuvem homologada ou, por exceção, provedor externo. Assistentes de código usam as contas corporativas, por fora do gateway. Abaixo, quatro provas da PoC.</title>
+      <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0B1B30"/></marker></defs>
+
+      <!-- usos que passam pelo gateway -->
+      <g font-size="15" font-weight="700" fill="#0B1B30">
+        <rect x="0" y="20" width="250" height="48" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/><text x="16" y="50">Chat do dia a dia</text>
+        <rect x="0" y="82" width="250" height="48" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/><text x="16" y="112">Aplicação com LLM</text>
+        <rect x="0" y="144" width="250" height="48" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/><text x="16" y="174">Agente em produção</text>
+      </g>
+      <g stroke="#0B1B30" stroke-width="2" fill="none" marker-end="url(#a4)">
+        <path d="M250 44 C300 44 300 98 336 98"/><path d="M250 106 L336 106"/><path d="M250 168 C300 168 300 114 336 114"/>
+      </g>
+      <!-- assistente de código: por fora -->
+      <rect x="0" y="214" width="250" height="40" rx="3" fill="#F8FAFC" stroke="#7D8C9E" stroke-width="1.8" stroke-dasharray="6 4"/>
+      <text x="16" y="239" font-size="15" font-weight="700" fill="#46576C">Assistente de código</text>
+      <path d="M250 234 L1110 234" stroke="#7D8C9E" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#a4)"/>
+      <text x="360" y="228" font-size="13" fill="#46576C">por fora do gateway: licença corporativa por pessoa e política do fornecedor</text>
+      <rect x="1116" y="216" width="372" height="38" rx="3" fill="#F8FAFC" stroke="#7D8C9E" stroke-width="1.8"/>
+      <text x="1132" y="240" font-size="14.5" font-weight="800" fill="#0B1B30">Contas corporativas dos fornecedores</text>
+
+      <!-- gateway -->
+      <rect x="340" y="6" width="700" height="200" rx="4" fill="#1351B4"/>
+      <text x="364" y="44" font-size="26" font-weight="900" fill="#fff">Gateway de IA</text>
+      <text x="364" y="68" font-size="14.5" fill="#D4E1F5">operado pela NUARQ: homologa modelos e gera as contas</text>
+      <g font-weight="700" fill="#fff">
+        <rect x="364" y="86" width="210" height="104" rx="3" fill="#0C3A85"/><text x="380" y="116" font-size="16.5">Controle de acesso</text><text x="380" y="140" font-weight="400" font-size="13.5" fill="#D4E1F5">quem pode usar qual</text><text x="380" y="158" font-weight="400" font-size="13.5" fill="#D4E1F5">modelo homologado</text>
+        <rect x="584" y="86" width="210" height="104" rx="3" fill="#0C3A85"/><text x="600" y="116" font-size="16.5">Custo visível</text><text x="600" y="140" font-weight="400" font-size="13.5" fill="#D4E1F5">orçamento por área,</text><text x="600" y="158" font-weight="400" font-size="13.5" fill="#D4E1F5">corte ao estourar</text>
+        <rect x="804" y="86" width="212" height="104" rx="3" fill="#0C3A85"/><text x="820" y="116" font-size="16.5">Guardrails</text><text x="820" y="140" font-weight="400" font-size="13.5" fill="#D4E1F5">dado pessoal mascarado,</text><text x="820" y="158" font-weight="400" font-size="13.5" fill="#D4E1F5">trilha de cada chamada</text>
+      </g>
+
+      <!-- modelos -->
+      <g stroke="#0B1B30" stroke-width="2" fill="none" marker-end="url(#a4)">
+        <path d="M1040 60 C1080 60 1080 30 1112 30"/><path d="M1040 100 C1080 100 1080 90 1112 90"/><path d="M1040 140 C1080 140 1080 150 1112 150"/>
+      </g>
+      <rect x="1116" y="6" width="372" height="48" rx="3" fill="#F8FAFC" stroke="#1351B4" stroke-width="3"/>
+      <text x="1132" y="28" font-size="15.5" font-weight="800" fill="#0B1B30">Modelos no ambiente próprio</text>
+      <text x="1132" y="46" font-size="13.5" fill="#46576C">SerproLLM e abertos · <tspan font-weight="700" fill="#1351B4">o padrão</tspan></text>
+      <rect x="1116" y="66" width="372" height="48" rx="3" fill="#F8FAFC" stroke="#0B1B30" stroke-width="2"/>
+      <text x="1132" y="88" font-size="15.5" font-weight="800" fill="#0B1B30">Modelo em nuvem homologada</text>
+      <text x="1132" y="106" font-size="13.5" fill="#46576C">contas nos provedores, atrás do gateway</text>
+      <rect x="1116" y="126" width="372" height="48" rx="3" fill="#F8FAFC" stroke="#7D8C9E" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="1132" y="148" font-size="15.5" font-weight="800" fill="#0B1B30">Provedor externo de fronteira</text>
+      <text x="1132" y="166" font-size="13.5" fill="#46576C">só por exceção justificada</text>
+
+      <!-- provas -->
+      <text x="0" y="284" font-size="17" font-weight="800" fill="#0B1B30">O que a prova de conceito mostrou</text>
+      <g>
+        <rect x="0" y="294" width="360" height="136" rx="4" fill="#F8FAFC" stroke="#C6D0DA" stroke-width="1.5"/>
+        <text x="18" y="324" font-size="16.5" font-weight="800" fill="#0B1B30">O CPF nunca chegou ao modelo</text>
+        <rect x="18" y="338" width="324" height="34" rx="2" fill="#0B1B30"/>
+        <text x="30" y="360" font-size="13" fill="#E9EEF3" class="mono">123.456.789-09 → &lt;BR_CPF&gt;</text>
+        <text x="18" y="400" font-size="14" fill="#46576C">mascarado no gateway, até dentro</text><text x="18" y="419" font-size="14" fill="#46576C">da ferramenta que o agente chamou</text>
+
+        <rect x="376" y="294" width="360" height="136" rx="4" fill="#F8FAFC" stroke="#C6D0DA" stroke-width="1.5"/>
+        <text x="394" y="324" font-size="16.5" font-weight="800" fill="#0B1B30">Modelo fora do perfil: negado</text>
+        <rect x="394" y="338" width="324" height="34" rx="2" fill="#0B1B30"/>
+        <text x="406" y="360" font-size="13" fill="#E9EEF3" class="mono">403 team not allowed to access model</text>
+        <text x="394" y="400" font-size="14" fill="#46576C">cada equipe vê só o catálogo</text><text x="394" y="419" font-size="14" fill="#46576C">que lhe cabe</text>
+
+        <rect x="752" y="294" width="360" height="136" rx="4" fill="#F8FAFC" stroke="#C6D0DA" stroke-width="1.5"/>
+        <text x="770" y="324" font-size="16.5" font-weight="800" fill="#0B1B30">Teto estourado: cortado</text>
+        <rect x="770" y="338" width="324" height="34" rx="2" fill="#0B1B30"/>
+        <text x="782" y="360" font-size="13" fill="#E9EEF3" class="mono">429 custo 0.6 acima do teto 0.5</text>
+        <text x="770" y="400" font-size="14" fill="#46576C">o limite vale na chamada, e não</text><text x="770" y="419" font-size="14" fill="#46576C">na fatura do mês seguinte</text>
+
+        <rect x="1128" y="294" width="360" height="136" rx="4" fill="#F8FAFC" stroke="#A83A2C" stroke-width="2"/>
+        <text x="1146" y="324" font-size="16.5" font-weight="800" fill="#A83A2C">O agente disse que deu certo</text>
+        <rect x="1146" y="338" width="324" height="34" rx="2" fill="#0B1B30"/>
+        <text x="1158" y="360" font-size="13" fill="#E9EEF3" class="mono">4 ações bloqueadas, resposta "sucesso"</text>
+        <text x="1146" y="400" font-size="14" fill="#46576C">só a trilha revelou: quem confere</text><text x="1146" y="419" font-size="14" fill="#46576C">não pode depender de quem executa</text>
+      </g>
+    </svg>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Ganho:</b> quem assina a OCN vê o consumo de IA do time e define o teto; estourou, o gateway corta.</li>
+      <li><b>Assistente de código pelo gateway</b> é trabalho futuro, se uma stack aberta amadurecer.</li>
+    </ul>
+    <a class="ponte" href="conhecimento.html"><div><span>Próxima</span><b>Base de conhecimento</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

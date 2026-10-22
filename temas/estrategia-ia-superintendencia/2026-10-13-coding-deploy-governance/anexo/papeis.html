@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papéis e responsabilidades</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+/* ── conceitos ─────────────────────────────────────────────────────────── */
+.conceitos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.conceito{padding:14px 16px;background:var(--papel-3);border:1px solid var(--regra)}
+.conceito .rotulo{display:block;margin-bottom:6px}
+.conceito h3{margin:0 0 6px;font-size:16px;letter-spacing:-.01em}
+.conceito p{margin:0;font-size:13px;color:var(--tinta-2)}
+.conceito p + p{margin-top:6px}
+.conceito .fonte{display:block;margin-top:8px;font-size:11px;color:var(--tinta-3)}
+
+/* ── topologia: departamentos no fluxo, NUARQ como plataforma ───────────── */
+.topologia{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:start}
+.topologia svg{width:100%;height:auto;display:block}
+.leituras{display:grid;gap:12px}
+.leitura{padding:14px 16px;border:1px solid var(--regra);background:var(--papel-3)}
+.leitura .rotulo{display:block;margin-bottom:6px}
+.leitura p{margin:0;font-size:15px;line-height:1.4}
+.leitura.nossa{border:2px solid var(--gov);background:#fff}
+.e-nao{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--tinta)}
+.e-nao > div{padding:12px 14px}
+.e-nao > div + div{border-left:1px solid var(--tinta);background:repeating-linear-gradient(135deg,var(--papel-3) 0 6px,#EAEEF2 6px 7px)}
+.e-nao h4{margin:0 0 6px;font-size:13px}
+.e-nao ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--tinta-2)}
+.e-nao li{margin:3px 0}
+
+/* ── perfis ────────────────────────────────────────────────────────────── */
+.perfis{width:100%;border-collapse:collapse;font-size:13px}
+.perfis th{text-align:left;font-size:11px;font-family:"JetBrains Mono",monospace;font-weight:400;color:var(--tinta-3);
+  text-transform:uppercase;letter-spacing:.05em;padding:0 14px 6px 0;border-bottom:2px solid var(--tinta)}
+.perfis td{padding:10px 14px 10px 0;border-top:1px solid var(--regra);vertical-align:top;color:var(--tinta-2)}
+.perfis td b{color:var(--tinta)}
+.perfis tr.sep td{border-top:2px solid var(--tinta)}
+.perfis td:first-child{width:140px}
+.perfis code{font-size:11.5px;background:rgba(10,26,47,.06);padding:1px 4px}
+
+/* ── RACI editável ─────────────────────────────────────────────────────── */
+.raci-barra{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px;font-size:12.5px;color:var(--tinta-2)}
+.raci-barra button{font:inherit;font-size:12px;font-weight:600;padding:6px 10px;border:1px solid var(--tinta);background:#fff;color:var(--tinta);cursor:pointer;border-radius:2px}
+.raci-barra button:hover{background:var(--papel-2)}
+.raci-barra .chave{display:flex;gap:6px;align-items:center}
+.raci{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+.raci th{font-size:11.5px;font-weight:600;color:var(--tinta);padding:8px 6px;border-bottom:2px solid var(--tinta);text-align:center;vertical-align:bottom}
+.raci th:first-child{text-align:left;padding-left:12px}
+.raci th.c-depto{border-top:5px solid var(--ambar)}
+.raci th.c-nuarq{border-top:5px solid var(--gov)}
+.raci th.c-sup{border-top:5px solid var(--tinta)}
+.raci th.c-seg{border-top:5px solid var(--tinta-3)}
+.raci td{border-top:1px solid var(--regra);padding:0;text-align:center}
+.raci td.atv{text-align:left;padding:7px 12px;color:var(--tinta)}
+.raci td.atv[contenteditable]:focus{background:var(--gov-claro);outline:none}
+.raci tr.grupo td{background:var(--papel-2);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--tinta-2);padding:6px 12px;text-align:left;border-top:2px solid var(--tinta)}
+.raci tr.alerta td.atv::after{content:" · precisa de exatamente um A";color:var(--risco);font-size:11.5px;font-weight:600}
+.cel{width:100%;min-width:54px;height:34px;border:0;background:transparent;font:inherit;font-weight:800;font-size:14px;cursor:pointer;color:var(--tinta-3)}
+.cel:hover{background:var(--papel-2)}
+.cel[data-v="A"]{background:var(--tinta);color:#fff}
+.cel[data-v="R"]{background:var(--gov-claro);color:var(--gov-escuro)}
+.cel[data-v="C"]{color:var(--tinta);background:repeating-linear-gradient(135deg,#fff 0 4px,#EEF1F5 4px 5px)}
+.cel[data-v="I"]{color:var(--tinta-3)}
+.raci-nota{margin-top:8px;font-size:12px;color:var(--tinta-3)}
+
+/* ── força de trabalho e orçamento ─────────────────────────────────────── */
+.orcamento{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:start}
+.orcamento svg{width:100%;height:auto;display:block}
+.regras{counter-reset:r;list-style:none;margin:0;padding:0}
+.regras li{counter-increment:r;display:grid;grid-template-columns:30px 1fr;gap:8px;padding:9px 0;border-top:1px solid var(--regra);font-size:13px;color:var(--tinta-2)}
+.regras li::before{content:counter(r);font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--gov)}
+.regras b{color:var(--tinta)}
+
+@media (max-width:1400px){ .conceitos{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:1180px){
+  .conceitos,.topologia,.orcamento,.e-nao{grid-template-columns:1fr}
+  .e-nao > div + div{border-left:0;border-top:1px solid var(--tinta)}
+  .raci-wrap{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<main class="folha">
+  <nav id="nav" data-atual="01"></nav>
+
+  <header class="topo">
+    <div>
+      <p class="sobre">01 · papéis</p>
+      <h1>Quem faz o quê, e quem paga os tokens</h1>
+      <p>Com o agente, quem escreve código deixa de ser o recurso escasso. O escasso passa a ser saber o que construir, conferir o que foi construído e manter a base de pé. Esta prancha diz quem responde por cada uma dessas coisas na SUNNU e como o orçamento de IA acompanha o trabalho.</p>
+    </div>
+    <dl class="legenda" aria-label="Legenda">
+      <dt><span class="tag depto">departamentos</span></dt><dd>squads de produto, no fluxo do negócio</dd>
+      <dt><span class="tag nuarq">NUARQ</span></dt><dd>squad de plataforma e habilitação</dd>
+      <dt><span class="tag trava">superintendência</span></dt><dd>aprova orçamento, prioridade e exceção</dd>
+      <dt><span class="tag validar">a validar</span></dt><dd>proposta desta prévia</dd>
+    </dl>
+  </header>
+
+  <div class="pergunta">
+    <div><span class="rotulo">a pergunta desta prancha</span><q>Se a NUARQ não escreve todo o código, o que exatamente ela conduz?</q></div>
+    <div class="minimapa" aria-label="Todo o ciclo">
+      <i class="on">1</i><i class="on">2</i><i class="on">3</i><i class="on">4</i><i class="on">5</i><i class="on">6</i><i class="on">7</i>
+      <span class="gov on"></span>
+    </div>
+  </div>
+
+  <!-- ── conceitos ─────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Cinco conceitos que sustentam o desenho</h2>
+    <p class="sub">Nenhum é invenção nossa. Cada um vem de prática publicada, e juntos explicam por que o Builder fica no departamento e a plataforma fica na NUARQ.</p>
+    <div class="conceitos" id="conceitos">
+      <div class="conceito"><span class="rotulo">perfis · Anthropic</span><h3>Modos de trabalho, não cargos</h3>
+        <p>Boris Cherny, criador do Claude Code, descreve cinco modos: Prototyper, Builder, Sweeper, Grower e Maintainer. Os cinco existem em toda fase; o que muda é a proporção.</p>
+        <p>O nosso portal acrescenta o sexto, que falta à lista: o <b>Verificador</b>.</p>
+        <span class="fonte">paddo.dev, 29/06/2026 (sobre post de Cherny) · portal de padrões, pessoas-e-normas</span></div>
+      <div class="conceito"><span class="rotulo">evidência · Anthropic</span><h3>Domínio pesa mais que código</h3>
+        <p>Num estudo de cerca de 400 mil sessões do Claude Code, a expertise de domínio prediz o sucesso mais que a formação em programação. As pessoas decidem o que construir; o agente decide como.</p>
+        <p>Sucesso verificado: 15% entre novatos, 28 a 33% entre intermediários e experts. Profissões de software não se destacam: 30% contra 26%.</p><span class="fonte">anthropic.com/research/claude-code-expertise · 16/06/2026</span></div>
+      <div class="conceito"><span class="rotulo">organização · Team Topologies</span><h3>Times no fluxo, plataforma por baixo</h3>
+        <p>Times <b>alinhados ao fluxo</b> entregam valor ao usuário. O time de <b>plataforma</b> oferece serviços internos de autoatendimento, e o de <b>habilitação</b> ajuda os outros a adotar uma capacidade nova e depois sai.</p>
+        <span class="fonte">teamtopologies.com/key-concepts</span></div>
+      <div class="conceito"><span class="rotulo">custo · FinOps</span><h3>Quem consome, enxerga e responde</h3>
+        <p>O custo de IA é atribuído a quem consome: primeiro como <b>showback</b> (mostrar o custo a cada área) e depois, se a casa quiser, como <b>chargeback</b> (debitar da área). No gateway, a chave virtual faz essa atribuição.</p>
+        <p>“O propósito não é reduzir o consumo de tokens, é ligá-lo a valor.”</p><span class="fonte">finops.org · FinOps for AI; Token Economics</span></div>
+      <div class="conceito"><span class="rotulo">pesquisa · DORA 2025</span><h3>A IA amplifica o que já existe</h3>
+        <p>Com cerca de 5 mil respondentes, o DORA conclui que a IA amplia as forças e as fraquezas da organização. Entre as sete capacidades que mais pesam estão a <b>plataforma interna de qualidade</b> e o trabalho em <b>lotes pequenos</b>.</p>
+        <span class="fonte">dora.dev/research/2025 · Google, 23/09/2025</span></div>
+    </div>
+  </section>
+
+  <!-- ── topologia ─────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>O squad: departamentos no fluxo, NUARQ como plataforma e habilitação</h2>
+    <p class="sub">A NUARQ conduz o <b>processo</b> de coding: o caminho pavimentado que os departamentos percorrem. Os departamentos conduzem o <b>produto</b>. Na partida, a NUARQ entra embarcada nos primeiros squads; depois, sai para a plataforma.</p>
+    <div class="topologia">
+      <figure style="margin:0">
+        <svg viewBox="0 0 760 470" role="img" aria-labelledby="topo-t">
+          <title id="topo-t">Três squads de departamento atravessam o fluxo até o usuário; por baixo, a plataforma da NUARQ; um squad conjunto de habilitação no início</title>
+          <defs>
+            <marker id="sa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#B06F12"/></marker>
+            <marker id="sg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1351B4"/></marker>
+            <pattern id="h1" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#F4F7FA"/><line x1="0" y1="0" x2="0" y2="7" stroke="#C3CDD8" stroke-width="2"/></pattern>
+          </defs>
+          <!-- usuário -->
+          <rect x="676" y="40" width="74" height="250" fill="#0A1A2F"/>
+          <text x="713" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle" transform="rotate(-90 713 160)">cliente · cidadão · órgão</text>
+          <!-- squads de produto -->
+          <g font-size="12">
+            <rect x="20" y="40" width="560" height="62" fill="#fff" stroke="#B06F12" stroke-width="2"/>
+            <rect x="20" y="40" width="8" height="62" fill="#B06F12"/>
+            <text x="42" y="64" font-size="15" font-weight="700" fill="#0A1A2F">Departamento A</text>
+            <text x="42" y="84" fill="#43556B">Prototyper · Builder · Grower — com agente e scaffold</text>
+            <line x1="580" y1="71" x2="670" y2="71" stroke="#B06F12" stroke-width="2.5" marker-end="url(#sa)"/>
+
+            <rect x="20" y="134" width="560" height="62" fill="#fff" stroke="#B06F12" stroke-width="2"/>
+            <rect x="20" y="134" width="8" height="62" fill="#B06F12"/>
+            <text x="42" y="158" font-size="15" font-weight="700" fill="#0A1A2F">Departamento B</text>
+            <text x="42" y="178" fill="#43556B">Prototyper · Builder · Grower — com agente e scaffold</text>
+            <line x1="580" y1="165" x2="670" y2="165" stroke="#B06F12" stroke-width="2.5" marker-end="url(#sa)"/>
+
+            <rect x="20" y="228" width="400" height="62" fill="#fff" stroke="#B06F12" stroke-width="2"/>
+            <rect x="20" y="228" width="8" height="62" fill="#B06F12"/>
+            <text x="42" y="252" font-size="15" font-weight="700" fill="#0A1A2F">Departamento C</text>
+            <text x="42" y="272" fill="#43556B">Prototyper · Builder · Grower</text>
+            <!-- squad de habilitação embarcado -->
+            <rect x="430" y="222" width="150" height="74" fill="url(#h1)" stroke="#1351B4" stroke-width="1.8" stroke-dasharray="5 4"/>
+            <text x="505" y="246" font-size="12.5" font-weight="700" fill="#0C3A85" text-anchor="middle">NUARQ embarcada</text>
+            <text x="505" y="264" fill="#43556B" text-anchor="middle">habilitação, 1º ciclo</text>
+            <text x="505" y="282" fill="#7A8A9D" text-anchor="middle" class="mono">depois sai</text>
+            <line x1="580" y1="259" x2="670" y2="259" stroke="#B06F12" stroke-width="2.5" marker-end="url(#sa)"/>
+          </g>
+          <!-- plataforma -->
+          <g stroke="#1351B4" stroke-width="2" marker-end="url(#sg)">
+            <line x1="150" y1="338" x2="150" y2="298"/><line x1="330" y1="338" x2="330" y2="298"/><line x1="510" y1="338" x2="510" y2="302"/>
+          </g>
+          <rect x="20" y="340" width="730" height="108" fill="#1351B4"/>
+          <text x="38" y="366" fill="#fff" font-size="17" font-weight="800">NUARQ · plataforma como produto interno</text>
+          <text x="38" y="386" fill="#DCE7F8" font-size="12">autoatendimento: o departamento consome sem abrir chamado</text>
+          <g font-size="12.5" fill="#fff" font-weight="600">
+            <text x="38" y="414">padrão</text><text x="38" y="432" font-weight="400" fill="#DCE7F8">constituição, portal, scaffold</text>
+            <text x="228" y="414">caminho pavimentado</text><text x="228" y="432" font-weight="400" fill="#DCE7F8">pipeline, contas, IaC</text>
+            <text x="418" y="414">gateway de IA</text><text x="418" y="432" font-weight="400" fill="#DCE7F8">chaves, cotas, trilha</text>
+            <text x="590" y="414">verificação</text><text x="590" y="432" font-weight="400" fill="#DCE7F8">revisão, travas</text>
+          </g>
+          <text x="20" y="22" font-size="11" fill="#7A8A9D" class="mono">FLUXO DE VALOR →</text>
+        </svg>
+      </figure>
+      <div class="leituras">
+        <div class="leitura"><span class="rotulo">a leitura do superintendente</span><p>A NUARQ conduz o coding, como um squad.</p></div>
+        <div class="leitura nossa"><span class="rotulo">a nossa proposta</span><p>Sim, a NUARQ é um squad, e conduz o coding <b>pelo processo</b>: define o padrão, opera a plataforma e verifica. Assim a capacidade de entrega cresce com os departamentos, e não com o quadro da NUARQ.</p></div>
+        <div class="e-nao">
+          <div><h4>É da NUARQ</h4><ul><li>dono do padrão, das contas e da governança</li><li>plataforma, pipeline e gateway funcionando</li><li>verificação independente do que vai a produção</li><li>embarcar no primeiro ciclo de cada squad</li></ul></div>
+          <div><h4>Não é da NUARQ</h4><ul><li>fila de aprovações para cada mudança</li><li>escrever o produto de cada departamento</li><li>decidir prioridade de negócio</li><li>pagar o token que outro consome</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── perfis, padrões e expectativas ─────────────────────────────────── -->
+  <section class="secao">
+    <h2>Perfis, padrões e expectativas</h2>
+    <p class="sub">Para cada modo, o que se espera, que padrão do portal ele segue e que evidência mostra que foi cumprido. A evidência importa porque o agente tende a elogiar o próprio trabalho; quem verifica precisa de algo concreto para conferir.</p>
+    <table class="perfis">
+      <thead><tr><th>Modo</th><th>Expectativa</th><th>Padrão que segue</th><th>Evidência de entrega</th><th>Quem</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag depto">Prototyper</span></td><td>Testar muitas ideias barato e <b>matar cedo</b> as que não servem.</td><td>Protótipo antes do código <code>UX-02</code></td><td>Protótipo navegável e decisão registrada: segue ou morre</td><td>Departamento</td></tr>
+        <tr><td><span class="tag depto">Builder</span></td><td>Levar a ideia a produção <b>pelo caminho pavimentado</b>, com spec aprovada e teste primeiro.</td><td>SDD por tier, <code>QLD-01</code>, constituição</td><td>Spec assinada, plano, testes verdes e evidência colada no PR</td><td>Departamento</td></tr>
+        <tr><td><span class="tag depto">Grower</span></td><td>Medir o uso e iterar o produto em direção a quem usa.</td><td>SLO e métricas <code>OBS-02</code></td><td>Painel de uso e custo por produto</td><td>Departamento</td></tr>
+        <tr class="sep"><td><span class="tag nuarq">Verificador</span></td><td>Conferir contra a spec, não só contra o diff. <b>Quem faz não julga.</b></td><td>Revisão independente, <code>verificar_pr.py</code></td><td>Veredito por requisito: requisito, veredito, evidência</td><td>NUARQ</td></tr>
+        <tr><td><span class="tag nuarq">Maintainer</span></td><td>Manter plataforma, contas e gateway seguros, confiáveis e rápidos.</td><td>Arquitetura Viva <code>ARQ-02</code>, IaC <code>IAC-02</code></td><td>Diagrama, IaC e ambiente batendo no CI; runbooks</td><td>NUARQ</td></tr>
+        <tr><td><span class="tag nuarq">Sweeper</span></td><td>Simplificar, desligar o que não serve, cortar custo.</td><td>O bug vira teste e depois regra <code>QLD-02</code></td><td>Recurso desligado, custo reduzido, regra nova no CI</td><td>NUARQ</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── RACI editável ─────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2>Matriz de responsabilidades, editável</h2>
+    <p class="sub">É uma proposta para discutir na sala. Clique numa célula para alternar entre R, A, C, I e vazio, e clique no nome de uma atividade para reescrevê-lo. Cada linha precisa de exatamente um A: a linha avisa quando isso não acontece. As alterações ficam salvas neste navegador.</p>
+    <div class="raci-barra">
+      <span class="chave"><span class="cel" data-v="R" style="width:auto;padding:4px 8px;height:auto">R</span> executa</span>
+      <span class="chave"><span class="cel" data-v="A" style="width:auto;padding:4px 8px;height:auto">A</span> responde pelo resultado, um só</span>
+      <span class="chave"><span class="cel" data-v="C" style="width:auto;padding:4px 8px;height:auto">C</span> é consultado antes</span>
+      <span class="chave"><span class="cel" data-v="I" style="width:auto;padding:4px 8px;height:auto">I</span> é informado depois</span>
+      <span style="flex:1"></span>
+      <button type="button" id="raci-md">Copiar como Markdown</button>
+      <button type="button" id="raci-reset">Restaurar proposta</button>
+    </div>
+    <div class="raci-wrap"><table class="raci" id="raci"></table></div>
+    <p class="raci-nota" id="raci-estado">Proposta original da NUARQ.</p>
+  </section>
+
+  <!-- ── força de trabalho e orçamento ─────────────────────────────────── -->
+  <section class="secao">
+    <h2>Força de trabalho e orçamento: o Builder no departamento leva o token junto</h2>
+    <p class="sub">Se o Builder fica no departamento, a força de trabalho cresce com cada departamento que adota o processo, e não com o quadro da NUARQ. O orçamento de IA segue o mesmo caminho: um teto único aprovado pela superintendência, distribuído em cotas por chave virtual e visível para cada área.</p>
+    <div class="orcamento">
+      <figure style="margin:0">
+        <svg viewBox="0 0 760 400" role="img" aria-labelledby="orc-t">
+          <title id="orc-t">O orçamento único da superintendência passa pelo gateway e se divide em cotas por departamento e uma reserva de plataforma da NUARQ; o custo volta como showback mensal</title>
+          <defs>
+            <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A1A2F"/></marker>
+            <marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1E7A4C"/></marker>
+            <pattern id="h2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#fff"/><line x1="0" y1="0" x2="0" y2="7" stroke="#C3CDD8" stroke-width="2"/></pattern>
+          </defs>
+          <rect x="20" y="150" width="150" height="100" fill="#0A1A2F"/>
+          <text x="95" y="184" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">Superintendência</text>
+          <text x="95" y="204" fill="#C9D4E2" font-size="12" text-anchor="middle">orçamento de IA</text>
+          <text x="95" y="222" fill="#C9D4E2" font-size="12" text-anchor="middle">único, com teto</text>
+          <line x1="170" y1="200" x2="232" y2="200" stroke="#0A1A2F" stroke-width="2.5" marker-end="url(#m1)"/>
+          <rect x="236" y="120" width="150" height="160" fill="#1351B4"/>
+          <text x="311" y="152" fill="#fff" font-size="15" font-weight="800" text-anchor="middle">Gateway</text>
+          <g fill="#DCE7F8" font-size="12" text-anchor="middle">
+            <text x="311" y="178">chave virtual</text><text x="311" y="196">por depto · projeto</text>
+            <text x="311" y="222">teto com corte</text><text x="311" y="240">automático</text>
+            <text x="311" y="264" class="mono" font-size="11">HTTP 429</text>
+          </g>
+          <g stroke="#0A1A2F" stroke-width="2" fill="none" marker-end="url(#m1)">
+            <path d="M386 160 C430 160 430 60 470 60"/><path d="M386 180 C430 180 430 140 470 140"/>
+            <path d="M386 220 C430 220 430 220 470 220"/><path d="M386 250 C430 250 430 320 470 320"/>
+          </g>
+          <g font-size="12">
+            <rect x="474" y="32" width="200" height="56" fill="#fff" stroke="#B06F12" stroke-width="2"/><rect x="474" y="32" width="6" height="56" fill="#B06F12"/>
+            <text x="490" y="55" font-weight="700" font-size="13.5" fill="#0A1A2F">Departamento A</text><text x="490" y="74" fill="#43556B">cota · Builders · projetos</text>
+            <rect x="474" y="112" width="200" height="56" fill="#fff" stroke="#B06F12" stroke-width="2"/><rect x="474" y="112" width="6" height="56" fill="#B06F12"/>
+            <text x="490" y="135" font-weight="700" font-size="13.5" fill="#0A1A2F">Departamento B</text><text x="490" y="154" fill="#43556B">cota · Builders · projetos</text>
+            <rect x="474" y="192" width="200" height="56" fill="#fff" stroke="#B06F12" stroke-width="2"/><rect x="474" y="192" width="6" height="56" fill="#B06F12"/>
+            <text x="490" y="215" font-weight="700" font-size="13.5" fill="#0A1A2F">Departamento C</text><text x="490" y="234" fill="#43556B">cota · Builders · projetos</text>
+            <rect x="474" y="292" width="200" height="56" fill="url(#h2)" stroke="#1351B4" stroke-width="2"/>
+            <text x="490" y="315" font-weight="700" font-size="13.5" fill="#0C3A85">Reserva NUARQ</text><text x="490" y="334" fill="#43556B">plataforma · verificação</text>
+          </g>
+          <!-- retorno showback -->
+          <path d="M690 60 H730 V385 H95 V256" fill="none" stroke="#1E7A4C" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#m2)"/>
+          <text x="420" y="378" fill="#1E7A4C" font-size="12.5" font-weight="700" text-anchor="middle">showback mensal por área → revisão trimestral das cotas</text>
+        </svg>
+      </figure>
+      <div>
+        <ol class="regras">
+          <li><span><b>Um teto só.</b> A superintendência aprova um orçamento de IA único, com contas nos provedores homologados atrás do gateway. Provedor vira roteamento técnico, não compra por projeto.</span></li>
+          <li><span><b>Cota por departamento.</b> Cada departamento recebe chaves virtuais com teto mensal. Estourou, o gateway corta. Na PoC, um perfil de US$ 1/mês foi cortado com HTTP 429.</span></li>
+          <li><span><b>Showback antes de chargeback.</b> Todo mês, cada área vê quanto consumiu, em quê e por qual modelo. Debitar da área é decisão posterior.</span></li>
+          <li><span><b>A NUARQ só paga o que é dela.</b> A reserva cobre plataforma, verificação e o squad embarcado. O token do produto é do produto.</span></li>
+          <li><span><b>Cota segue resultado.</b> A revisão trimestral realoca a partir de uso e entrega, não de pedido.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <a class="ponte" href="coding.html">
+    <div><span class="rotulo">próxima · 02 coding</span><b>Definido quem faz, falta definir como.</b><span class="t">Com o Builder no departamento e o agente escrevendo, o processo é o que impede que cada squad entregue do seu jeito.</span></div>
+    <span class="ir">02 Coding →</span>
+  </a>
+
+  <footer class="rodape">
+    <span>Fontes: <code>padroes-engenharia/paginas/pessoas-e-normas.md</code> · <code>serpro-cloud-ia-governance/docs/governanca/arquitetura-governanca-ia.md</code> §7 · <code>docs/ref/reunioes/2026-09-08-alinhamento-gerente-arquitetura.md</code></span>
+    <span>Prévia 13/10/2026</span>
+  </footer>
+</main>
+
+<script>
+// Matriz RACI: proposta inicial, edição por clique, persistência local e cópia em Markdown.
+(function () {
+  var COLS = [["c-depto", "Departamentos"], ["c-nuarq", "NUARQ"], ["c-sup", "Superintendência"], ["c-seg", "Segurança · DPO"]];
+  var PROPOSTA = [
+    ["Coding"],
+    ["Decidir o que construir e a prioridade", "A", "C", "I", ""],
+    ["Prototipar e decidir se a ideia segue", "A", "I", "", ""],
+    ["Escrever e aprovar a spec", "A", "C", "", ""],
+    ["Implementar com agente, em TDD", "A", "", "", ""],
+    ["Manter constituição, portal e scaffold", "C", "A", "I", ""],
+    ["Revisão independente antes do merge", "R", "A", "", ""],
+    ["Deploy"],
+    ["Contas, landing zone e topologia das OCNs", "I", "A", "C", "C"],
+    ["Pipeline de referência e travas de CI", "C", "A", "", "C"],
+    ["Publicar o produto em produção", "A", "R", "", ""],
+    ["Operar o produto: SLO, alerta, runbook", "A", "C", "", ""],
+    ["Operar a plataforma e o gateway", "I", "A", "", "C"],
+    ["Governance"],
+    ["Aprovar orçamento de IA e cotas", "C", "R", "A", ""],
+    ["Homologar modelos, skills e ferramentas", "C", "A", "I", "C"],
+    ["Classificar dado e escolher nuvem", "R", "C", "", "A"],
+    ["Acompanhar consumo e custo (showback)", "R", "A", "I", ""],
+    ["Responder a incidente com IA", "R", "A", "I", "C"]
+  ];
+  var CHAVE = "sunnu-raci-v1", CICLO = ["", "R", "A", "C", "I"];
+  var tabela = document.getElementById("raci"), estado = document.getElementById("raci-estado");
+  function carregar() { try { var s = localStorage.getItem(CHAVE); if (s) return JSON.parse(s); } catch (e) {} return null; }
+  function salvar(d) { try { localStorage.setItem(CHAVE, JSON.stringify(d)); } catch (e) {} }
+  var dados = carregar() || JSON.parse(JSON.stringify(PROPOSTA));
+  function render() {
+    var h = '<thead><tr><th>Atividade</th>' + COLS.map(function (c) { return '<th class="' + c[0] + '">' + c[1] + "</th>"; }).join("") + "</tr></thead><tbody>";
+    dados.forEach(function (l, i) {
+      if (l.length === 1) { h += '<tr class="grupo"><td colspan="5">' + l[0] + "</td></tr>"; return; }
+      var nA = l.slice(1).filter(function (v) { return v === "A"; }).length;
+      h += "<tr" + (nA !== 1 ? ' class="alerta"' : "") + '><td class="atv" contenteditable="true" data-i="' + i + '">' + l[0] + "</td>";
+      for (var j = 1; j <= 4; j++) h += '<td><button type="button" class="cel" data-i="' + i + '" data-j="' + j + '" data-v="' + l[j] + '" aria-label="' + COLS[j - 1][1] + '">' + (l[j] || "·") + "</button></td>";
+      h += "</tr>";
+    });
+    tabela.innerHTML = h + "</tbody>";
+    estado.textContent = JSON.stringify(dados) === JSON.stringify(PROPOSTA) ? "Proposta original da NUARQ." : "Editada neste navegador. “Restaurar proposta” volta à original.";
+  }
+  tabela.addEventListener("click", function (e) {
+    var b = e.target.closest(".cel"); if (!b) return;
+    var i = +b.dataset.i, j = +b.dataset.j;
+    dados[i][j] = CICLO[(CICLO.indexOf(dados[i][j]) + 1) % CICLO.length];
+    salvar(dados); render();
+    var nb = tabela.querySelector('.cel[data-i="' + i + '"][data-j="' + j + '"]'); if (nb) nb.focus();
+  });
+  tabela.addEventListener("blur", function (e) {
+    if (!e.target.classList || !e.target.classList.contains("atv")) return;
+    dados[+e.target.dataset.i][0] = e.target.textContent.trim(); salvar(dados); render();
+  }, true);
+  document.getElementById("raci-reset").addEventListener("click", function () {
+    dados = JSON.parse(JSON.stringify(PROPOSTA)); try { localStorage.removeItem(CHAVE); } catch (e) {} render();
+  });
+  document.getElementById("raci-md").addEventListener("click", function () {
+    var md = "| Atividade | " + COLS.map(function (c) { return c[1]; }).join(" | ") + " |\n|---|---|---|---|---|\n";
+    dados.forEach(function (l) { md += l.length === 1 ? "| **" + l[0] + "** | | | | |\n" : "| " + l.join(" | ") + " |\n"; });
+    var btn = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(md) : Promise.reject()).then(function () { btn.textContent = "Copiado"; },
+      function () { btn.textContent = "Cópia indisponível"; });
+    setTimeout(function () { btn.textContent = "Copiar como Markdown"; }, 1800);
+  });
+  render();
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA na SUNNU: o contexto</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+.evid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:14px}
+.evid div{background:var(--branco);border:1px solid var(--regra);border-radius:3px;padding:10px 14px}
+.evid b{display:block;font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.05;color:var(--limite)}
+.evid span{display:block;font-size:13.5px;color:var(--tinta);line-height:1.3;margin-top:4px}
+.evid small{display:block;font-size:11.5px;color:var(--tinta-3);margin-top:5px}
+@media (max-width:1100px){.evid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="0"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Gerar ficou barato.<br>O risco agora é o AI slop</h1>
+      <p class="sub">Todo departamento já tem uma ideia andando com IA. Sem padrão, conferência e operação, o volume vira slop: aplicação que ninguém mantém, código que ninguém revisou, iniciativa repetida em outra área.</p>
+    </div>
+    <div class="chave"><b>Slop</b><span>palavra do ano de 2025 do dicionário Merriam-Webster</span></div>
+  </header>
+
+  <section class="palco" aria-label="Como o AI slop aparece e como ele chega à SUNNU">
+    <svg viewBox="0 0 1488 300" role="img" aria-labelledby="t0">
+      <title id="t0">A causa em três passos: gerar ficou barato, o volume explode, conferir e operar não escalaram. O resultado é o AI slop, definido como conteúdo de baixa qualidade produzido em quantidade por IA. Na SUNNU ele aparece como explosão de aplicações, sombreamento de iniciativas, falta de expertise para operar e manter, caminho longo até a produção, e qualidade e segurança.</title>
+      <defs>
+        <marker id="m0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0B1B30"/></marker>
+        <marker id="m0r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#A83A2C"/></marker>
+      </defs>
+
+      <!-- a causa -->
+      <text x="0" y="18" font-size="16" font-weight="800" fill="#46576C">A causa</text>
+      <g>
+        <rect x="0" y="32" width="400" height="72" rx="3" fill="#F8FAFC" stroke="#0B1B30" stroke-width="2"/>
+        <text x="18" y="62" font-size="17" font-weight="800" fill="#0B1B30">Gerar ficou barato e rápido</text>
+        <text x="18" y="86" font-size="14" fill="#46576C">qualquer um faz protótipo, tela e código</text>
+        <rect x="0" y="128" width="400" height="72" rx="3" fill="#F8FAFC" stroke="#0B1B30" stroke-width="2"/>
+        <text x="18" y="158" font-size="17" font-weight="800" fill="#0B1B30">O volume explode</text>
+        <text x="18" y="182" font-size="14" fill="#46576C">mais ideia, mais aplicação, mais código</text>
+        <rect x="0" y="224" width="400" height="72" rx="3" fill="#F8FAFC" stroke="#A83A2C" stroke-width="2.5"/>
+        <text x="18" y="254" font-size="17" font-weight="800" fill="#A83A2C">Conferir e operar não escalaram</text>
+        <text x="18" y="278" font-size="14" fill="#46576C">revisão, manutenção e custo seguem no braço</text>
+      </g>
+      <g stroke="#0B1B30" stroke-width="2.2" marker-end="url(#m0)"><line x1="200" y1="104" x2="200" y2="124"/><line x1="200" y1="200" x2="200" y2="220"/></g>
+      <path d="M400 260 C440 260 440 160 470 160" fill="none" stroke="#A83A2C" stroke-width="3" marker-end="url(#m0r)"/>
+
+      <!-- AI slop -->
+      <rect x="476" y="32" width="470" height="264" rx="4" fill="#A83A2C"/>
+      <text x="502" y="84" font-size="44" font-weight="900" fill="#fff">AI slop</text>
+      <text x="502" y="118" font-size="16" fill="#fff">conteúdo de baixa qualidade, produzido</text>
+      <text x="502" y="139" font-size="16" fill="#fff">em quantidade por inteligência artificial</text>
+      <line x1="502" y1="160" x2="920" y2="160" stroke="#F4DAD5" stroke-opacity=".5"/>
+      <text x="502" y="188" font-size="15" font-weight="700" fill="#fff">No trabalho, “workslop”:</text>
+      <text x="502" y="208" font-size="14.5" fill="#F4DAD5">parece pronto, mas não avança a tarefa</text>
+      <text x="502" y="240" font-size="15" font-weight="700" fill="#fff">No software:</text>
+      <text x="502" y="260" font-size="14.5" fill="#F4DAD5">roda no protótipo e não no ar; duplica,</text>
+      <text x="502" y="280" font-size="14.5" fill="#F4DAD5">abre falha de segurança, ninguém mantém</text>
+      <path d="M946 164 L996 164" stroke="#A83A2C" stroke-width="3" marker-end="url(#m0r)"/>
+
+      <!-- na SUNNU -->
+      <text x="1004" y="18" font-size="16" font-weight="800" fill="#46576C">Na SUNNU, já aparece como</text>
+      <g>
+        <rect x="1004" y="32" width="484" height="48" rx="3" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1004" y="32" width="6" height="48" fill="#A83A2C"/>
+        <text x="1024" y="62" font-size="16" font-weight="800" fill="#0B1B30">Explosão de aplicações para gerenciar</text>
+        <rect x="1004" y="86" width="484" height="48" rx="3" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1004" y="86" width="6" height="48" fill="#A83A2C"/>
+        <text x="1024" y="116" font-size="16" font-weight="800" fill="#0B1B30">Sombreamento de iniciativas</text>
+        <rect x="1004" y="140" width="484" height="48" rx="3" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1004" y="140" width="6" height="48" fill="#A83A2C"/>
+        <text x="1024" y="170" font-size="16" font-weight="800" fill="#0B1B30">Falta expertise para operar e manter</text>
+        <rect x="1004" y="194" width="484" height="48" rx="3" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1004" y="194" width="6" height="48" fill="#A83A2C"/>
+        <text x="1024" y="224" font-size="16" font-weight="800" fill="#0B1B30">Caminho longo até a produção</text>
+        <rect x="1004" y="248" width="484" height="48" rx="3" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1004" y="248" width="6" height="48" fill="#A83A2C"/>
+        <text x="1024" y="278" font-size="16" font-weight="800" fill="#0B1B30">Qualidade e segurança</text>
+      </g>
+    </svg>
+
+    <div class="evid" aria-label="Evidências">
+      <div><b>45%</b><span>do código gerado por IA trouxe falha de segurança</span><small>Veracode, 100+ modelos, jul. 2025</small></div>
+      <div><b>8×</b><span>mais blocos de código duplicado em 2024</span><small>GitClear, 211 mi de linhas, 2025</small></div>
+      <div><b>40%</b><span>receberam workslop no último mês; ~2 h perdidas por caso</span><small>BetterUp e Stanford, 2025</small></div>
+      <div><b>19%</b><span>mais lentos com IA, achando que estavam mais rápidos</span><small>METR, devs experientes, jul. 2025</small></div>
+      <div><b>curl</b><span>encerrou o programa de recompensa por excesso de relatórios slop</span><small>The New Stack, jan. 2026</small></div>
+    </div>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Premissa:</b> não podemos nem devemos barrar as iniciativas.</li>
+      <li><b>A resposta não é gerar menos.</b> É dar padrão, conferência e operação ao que se gera.</li>
+    </ul>
+    <a class="ponte" href="iniciativas.html"><div><span>Próxima</span><b>O que já anda nas áreas</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>
