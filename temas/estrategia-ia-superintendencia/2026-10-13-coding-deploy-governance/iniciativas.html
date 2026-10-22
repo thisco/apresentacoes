@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iniciativas das áreas</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+/* a jornada do cliente de nuvem: dois momentos, cinco frentes */
+.jornada{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;align-items:end}
+.momento{grid-column:span 2;padding-bottom:6px;border-bottom:2px solid var(--tinta);font-size:14px;font-weight:800;color:var(--tinta)}
+.momento.pos{grid-column:span 3}
+.momento span{font-weight:500;color:var(--tinta-2);margin-left:10px}
+.etapas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:6px 0 8px}
+.etapas div{position:relative;font-size:13px;color:var(--tinta-2);padding-right:18px}
+.etapas div::after{content:"";position:absolute;right:2px;top:50%;width:9px;height:9px;border-top:2px solid var(--tinta-3);border-right:2px solid var(--tinta-3);transform:translateY(-50%) rotate(45deg)}
+.etapas div:last-child::after{display:none}
+
+.frentes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.frente{font:inherit;text-align:left;width:100%;cursor:pointer;background:var(--branco);border:1px solid var(--regra);border-radius:3px;
+  padding:12px 14px 12px;display:grid;grid-template-rows:16px 72px 94px 18px;row-gap:10px;color:var(--tinta)}
+.frente:hover{border-color:var(--tinta-3)}
+.frente[aria-pressed="true"]{border-color:var(--tinta);box-shadow:inset 0 0 0 1px var(--tinta)}
+.frente .quem{font-size:12.5px;line-height:16px;color:var(--tinta-3)}
+/* a caixa âmbar do Misael: a frente de automação, sempre na mesma altura. Azul quando é da NUARQ */
+.frente .caixas{display:grid;grid-auto-rows:1fr;gap:4px}
+.frente .caixa{display:flex;align-items:center;background:var(--ambar-claro);border:1.5px solid var(--ambar);border-radius:3px;padding:4px 12px;
+  font-size:17px;font-weight:800;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.frente.nuarq .caixa{background:var(--gov-claro);border-color:var(--gov)}
+.frente .caixas.duas .caixa{font-size:15px}
+/* as caixas brancas: os domínios, uma por linha, três linhas reservadas */
+.frente .dominios{margin:0;padding:0;list-style:none;display:grid;grid-template-rows:repeat(3,28px);row-gap:5px}
+.frente .dominios li{font-size:12.5px;line-height:1.2;color:var(--tinta-2);padding:0 9px;display:flex;align-items:center;border:1px solid var(--regra);border-radius:2px;background:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frente .dominios li.ia{border-style:dashed;border-color:var(--gov);color:var(--gov-2)}
+.frente .estado{font-size:12.5px;line-height:18px;font-weight:600;color:var(--tinta-2);display:flex;align-items:center;gap:7px}
+.frente .estado::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--tinta-3);flex:none}
+.frente .estado.ar::before{background:var(--verde)}
+.frente .estado.obra::before{background:var(--ambar)}
+.legenda{display:flex;gap:22px;margin:8px 0 0;font-size:12px;color:var(--tinta-3);align-items:center}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda i{width:14px;height:10px;border-radius:2px;display:inline-block}
+.legenda .lg-frente{background:var(--ambar-claro);border:1.5px solid var(--ambar)}
+.legenda .lg-nuarq{background:var(--gov-claro);border:1.5px solid var(--gov)}
+.legenda .lg-dominio{background:#fff;border:1px solid var(--regra)}
+.legenda .dica{margin-left:auto}
+.legenda.off .dica{visibility:hidden}
+
+/* o painel: onde se tocam, ou a ficha da frente escolhida */
+.painel{margin-top:12px;border:1px solid var(--regra);border-left:5px solid var(--tinta);border-radius:3px;background:var(--branco);padding:10px 18px 11px;min-height:112px}
+.painel[hidden]{display:none}
+.painel header{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.painel h2{margin:0;font-size:16px;font-weight:800}
+.painel header span{font-size:13px;color:var(--tinta-3)}
+.painel header .fecha{margin-left:auto;font:inherit;font-size:12.5px;color:var(--tinta-2);background:none;border:1px solid var(--regra);border-radius:2px;padding:3px 9px;cursor:pointer}
+.painel header .fecha:hover{border-color:var(--tinta);color:var(--tinta)}
+.ficha{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:0;padding:0}
+.ficha div{font-size:13px;line-height:1.32;color:var(--tinta-2)}
+.ficha b{display:block;color:var(--tinta);font-weight:800;margin-bottom:2px}
+.painel.dep{border-left-color:var(--ambar)} .painel.nuarq{border-left-color:var(--gov)}
+.aconfirmar{color:var(--tinta-3)}
+@media (max-width:1100px){
+  .jornada,.etapas,.frentes{grid-template-columns:1fr 1fr}
+  .momento,.momento.pos{grid-column:span 2}
+  .ficha{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="1"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Seis frentes já andam, da pesquisa de mercado ao faturamento</h1>
+      <p class="sub">Cada área construiu a plataforma para a própria dor, com IA dentro ou a caminho. Juntas, cobrem o ciclo inteiro do cliente de nuvem. É nelas que os pilares se aplicam.</p>
+    </div>
+    <div class="chave"><b>6 frentes</b><span>em cinco áreas, no mapa do Misael: três na pré-venda, três na pós-venda</span></div>
+  </header>
+
+  <section class="palco" aria-label="As cinco frentes na jornada do cliente de nuvem">
+    <div class="jornada" aria-hidden="true">
+      <div class="momento">Pré-venda<span>antes do contrato</span></div>
+      <div class="momento pos">Pós-venda<span>depois do contrato</span></div>
+    </div>
+    <div class="etapas" aria-hidden="true">
+      <div>pesquisa o mercado</div><div>precifica e propõe</div><div>executa o projeto</div><div>contrata e fatura</div><div>acompanha o cliente</div>
+    </div>
+
+    <ul class="frentes" aria-label="Frentes de automação; escolha uma para ver a ficha">
+      <li><button type="button" class="frente" data-frente="eli" aria-pressed="false">
+        <span class="quem">Eli</span>
+        <span class="caixas"><span class="caixa">Plataforma de Pesquisa de Mercado</span></span>
+        <ul class="dominios"><li>compras públicas</li><li>preços praticados</li><li>concorrentes</li></ul>
+        <span class="estado obra">em construção no Estaleiro</span>
+      </button></li>
+      <li><button type="button" class="frente nuarq" data-frente="nuarq" aria-pressed="false">
+        <span class="quem">Misael · NUARQ</span>
+        <span class="caixas duas"><span class="caixa">Catálogo de Preços</span><span class="caixa">Demandas e agentes</span></span>
+        <ul class="dominios"><li>requisitos e workloads</li><li>propostas e calculadoras</li><li>arquiteturas de referência</li></ul>
+        <span class="estado ar">em produção · catálogo e demandas</span>
+      </button></li>
+      <li><button type="button" class="frente" data-frente="nujor" aria-pressed="false">
+        <span class="quem">Junio · NUJOR</span>
+        <span class="caixas"><span class="caixa">Plataforma de Projetos</span></span>
+        <ul class="dominios"><li class="ia">agente de estimativa de horas</li><li>projetos e consultorias</li><li>horas executadas</li></ul>
+        <span class="estado obra">protótipo · fase 1 de 3</span>
+      </button></li>
+      <li><button type="button" class="frente" data-frente="gmc" aria-pressed="false">
+        <span class="quem">Flamarion</span>
+        <span class="caixas"><span class="caixa">GMC</span></span>
+        <ul class="dominios"><li>faturamento</li><li>contratos</li><li>consumo direto da nuvem</li></ul>
+        <span class="estado ar">no ar · roadmap 2026 e 2027</span>
+      </button></li>
+      <li><button type="button" class="frente" data-frente="felipe" aria-pressed="false">
+        <span class="quem">Felipe</span>
+        <span class="caixas"><span class="caixa">Plataforma de Inteligência de Nuvem</span></span>
+        <ul class="dominios"><li>consumo do cliente (RDC, Focus)</li><li>contratos (SIGECON)</li><li>acionamentos (Govi)</li></ul>
+        <span class="estado">arquitetura v1 · a validar</span>
+      </button></li>
+    </ul>
+    <div class="legenda" aria-hidden="true">
+      <span><i class="lg-frente"></i>frente de automação de um departamento</span><span><i class="lg-nuarq"></i>frente da NUARQ</span><span><i class="lg-dominio"></i>domínio que ela cobre</span>
+      <span class="dica">clique numa frente para abrir a ficha</span>
+    </div>
+
+    <div class="painel dep" id="ficha" hidden>
+      <header><h2 id="ficha-titulo"></h2><span id="ficha-quem"></span><button type="button" class="fecha" id="ficha-fecha">Fechar (Esc)</button></header>
+      <div class="ficha">
+        <div><b>O que é</b><span id="f-oque"></span></div>
+        <div><b>Onde está</b><span id="f-onde"></span></div>
+        <div><b>IA dentro</b><span id="f-ia"></span></div>
+        <div><b>O que pede aos pilares</b><span id="f-pede"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Premissa:</b> nenhuma frente para. Os pilares dão caminho a elas.</li>
+      <li><b>Onde se tocam:</b> contratos e consumo (GMC e Plataforma de Inteligência), preço (catálogo e GMC), horas (NUJOR e a base). Um dono por domínio, integração por API.</li>
+    </ul>
+    <a class="ponte" href="pilares.html"><div><span>Próxima</span><b>Os quatro pilares</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script>
+// Escolher uma frente abre a ficha dela abaixo do mapa. Teclas 1 a 5 escolhem; Esc fecha.
+(function () {
+  var fichas = {
+    eli: { titulo: "Plataforma de Pesquisa de Mercado", quem: "Eli · pré-venda", classe: "dep",
+      oque: "Pesquisa de mercado para a pré-venda: compras públicas, preços praticados e concorrentes, com a IA fazendo a pesquisa.",
+      onde: "Serviços nascendo no Estaleiro. Foi o primeiro caso que a NUARQ acompanhou para mapear requisitos.",
+      ia: "Modelo local mais um modelo de pesquisa externo, em avaliação. <span class=\"aconfirmar\">(confirmar com o Eli)</span>",
+      pede: "Gateway para o modelo externo, por exceção justificada. Padrão de deploy. Cada pesquisa feita vira ativo da base de conhecimento." },
+    nuarq: { titulo: "Catálogo de Preços dos Provedores", quem: "Misael · NUARQ · pré-venda", classe: "nuarq",
+      oque: "Duas frentes: o catálogo multinuvem de preços dos provedores, base das calculadoras e propostas; e a entrada de demandas com agentes, a partir dos requisitos e workloads dos clientes.",
+      onde: "As duas em produção: o catálogo com seis provedores e o sistema de demandas. A integração do catálogo com o GMC está em andamento.",
+      ia: "LLM classifica o catálogo em categorias canônicas, com dois canais de governança. Agentes nas demandas.",
+      pede: "É o laboratório dos pilares: o scaffold, o pipeline modelo e o guia de desenvolvimento saíram daqui." },
+    nujor: { titulo: "Plataforma de Projetos (Panorama)", quem: "Junio · NUJOR · pós-venda", classe: "dep",
+      oque: "Uma visão só do departamento, da demanda à execução. Unifica as ferramentas das duas divisões, orçamentação e execução, que hoje vivem no Git.",
+      onde: "Protótipo feito no Antigravity e publicado no Estaleiro. Fase 1 exibe o que existe; fase 2 insere pelo sistema; fase 3 dispensa o Git.",
+      ia: "Orçamentador com três agentes (coordena, planeja, padroniza) lê as decisões arquiteturais e gera a planilha de atividades e horas, no SerproLLM. Próximo passo: histórico de projetos por RAG.",
+      pede: "Hands-on com a NUARQ desde 29/09. Guia para quem já tem código (reaproveitar ou refazer). Base de conhecimento com horas executadas. Gateway e RAG." },
+    gmc: { titulo: "GMC", quem: "Flamarion · pós-venda", classe: "dep",
+      oque: "O sistema de gestão da nuvem: contratos, faturamento e consumo direto. É a origem de contrato e fatura para as outras frentes.",
+      onde: "No ar. Roadmap: 2026, extração de dados de oito fontes; 2027, gestão de contas no lugar do Gama, OCN e ordens de serviço. A gestão financeira fica na SUNNU até a SUPAN amadurecer.",
+      ia: "Consome o SerproLLM. <span class=\"aconfirmar\">(onde e para quê: confirmar com o Flamarion)</span>",
+      pede: "Fonte da base de conhecimento: contratos, consumo e faturamento com curadoria do GMC. Integração por API com o catálogo e com a Plataforma de Inteligência." },
+    felipe: { titulo: "Plataforma de Inteligência de Nuvem", quem: "Felipe · pós-venda", classe: "dep",
+      oque: "Consolida clientes, contratos, faturamento, acionamentos e compromissos para a operação multicloud. O portal é operacional; o BI executivo fica no Qlik Sense.",
+      onde: "Arquitetura v1 em prancha: Estaleiro (código 14600), módulos Angular e Java por API, um PostgreSQL com staging, operação e auditoria, Login Único. Um pipeline agendado lê GMC, GEDIG, GOVI e a fonte financeira por API.",
+      ia: "LLMs Serpro prioritários no processamento; Copilot 365 como alternativa. Acesso e contratos ainda a validar.",
+      pede: "Gateway: o acesso à IA é ponto aberto na prancha. Padrão de deploy no Estaleiro. Curadoria dos domínios de cliente e contrato na base de conhecimento." }
+  };
+  var ordem = ["eli", "nuarq", "nujor", "gmc", "felipe"];
+  var botoes = document.querySelectorAll(".frente");
+  var ficha = document.getElementById("ficha"), dica = document.querySelector(".legenda");
+  function mostra(id) {
+    botoes.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.frente === id)); });
+    if (!id) { ficha.hidden = true; dica.classList.remove("off"); return; }
+    var f = fichas[id];
+    ficha.className = "painel " + f.classe;
+    document.getElementById("ficha-titulo").textContent = f.titulo;
+    document.getElementById("ficha-quem").textContent = f.quem;
+    document.getElementById("f-oque").innerHTML = f.oque;
+    document.getElementById("f-onde").innerHTML = f.onde;
+    document.getElementById("f-ia").innerHTML = f.ia;
+    document.getElementById("f-pede").innerHTML = f.pede;
+    dica.classList.add("off"); ficha.hidden = false;
+  }
+  botoes.forEach(function (b) {
+    b.addEventListener("click", function () { mostra(b.getAttribute("aria-pressed") === "true" ? null : b.dataset.frente); });
+  });
+  document.getElementById("ficha-fecha").addEventListener("click", function () { mostra(null); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") mostra(null);
+    var n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 5) mostra(ordem[n - 1]);
+  });
+  if (location.hash && fichas[location.hash.slice(1)]) mostra(location.hash.slice(1));
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

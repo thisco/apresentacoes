@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construir com IA na SUNNU</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+/* ── Prancha 00: o ciclo inteiro numa linha, quem faz em cima, a governança embaixo ── */
+.ciclo{margin-top:30px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:14px;row-gap:0}
+.ciclo .modos{display:contents}
+.modo{align-self:end;margin-bottom:10px;padding:8px 10px;border-radius:2px;font-size:12px;line-height:1.3;color:var(--tinta-2)}
+.modo b{display:block;font-size:14px;color:#fff;letter-spacing:-.01em}
+.modo.depto{background:var(--ambar);color:#FBEFD9}
+.modo.nuarq{background:var(--gov);color:#DCE7F8}
+.modo.ambos{background:linear-gradient(90deg,var(--ambar) 0 50%,var(--gov) 50% 100%);color:#fff}
+.etapa{position:relative;background:var(--papel-3);border:1px solid var(--tinta-3);padding:12px 12px 14px;min-height:118px}
+.etapa .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3)}
+.etapa h3{margin:2px 0 4px;font-size:17px;letter-spacing:-.015em}
+.etapa p{margin:0;font-size:12.5px;color:var(--tinta-2)}
+.etapa.gate{border:2px solid var(--tinta)}
+.etapa.gate::before{content:"portão";position:absolute;top:-1px;right:-1px;background:var(--tinta);color:#fff;
+  font-size:10.5px;font-weight:600;padding:3px 7px}
+.etapa::after{content:"";position:absolute;right:-15px;top:50%;width:14px;height:2px;background:var(--tinta)}
+.etapa:last-of-type::after{display:none}
+.faixa-linha{margin-top:12px;padding:12px 14px;color:#fff;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;text-decoration:none}
+.faixa-linha .k{font-family:"JetBrains Mono",monospace;font-size:12px;opacity:.75}
+.faixa-linha b{font-size:22px;letter-spacing:-.02em;display:block;line-height:1.05}
+.faixa-linha span{font-size:13px;opacity:.9}
+.faixa-linha .ir{font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.6);padding:5px 9px;white-space:nowrap}
+.faixa-linha:hover .ir{background:rgba(255,255,255,.15)}
+.f-coding{grid-column:1/5;background:var(--tinta)}
+.f-deploy{grid-column:5/8;background:#24364F}
+.f-gov{grid-column:1/8;margin-top:8px;background:var(--gov);position:relative}
+.f-gov::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px;
+  background:repeating-linear-gradient(90deg,var(--gov) 0 2px,transparent 2px 14.28%)}
+.volta{grid-column:1/8;margin-top:10px;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--tinta-2)}
+.volta svg{flex:none}
+
+/* ── a proposta de squad ──────────────────────────────────────────────── */
+.squad{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;align-items:start}
+.leituras{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.leitura{padding:14px 16px;border:1px solid var(--regra);background:var(--papel-3)}
+.leitura .rotulo{display:block;margin-bottom:6px}
+.leitura p{margin:0;font-size:14.5px;line-height:1.4}
+.leitura.nossa{border:2px solid var(--gov);background:#fff}
+.tabela-modos{width:100%;border-collapse:collapse;font-size:13px}
+.tabela-modos th{text-align:left;font-size:11px;font-family:"JetBrains Mono",monospace;font-weight:400;
+  color:var(--tinta-3);text-transform:uppercase;letter-spacing:.05em;padding:0 10px 6px 0;border-bottom:2px solid var(--tinta)}
+.tabela-modos td{padding:8px 10px 8px 0;border-top:1px solid var(--regra);vertical-align:top;color:var(--tinta-2)}
+.tabela-modos td:first-child{white-space:nowrap}
+.tabela-modos td b{color:var(--tinta)}
+.tabela-modos tr.sep td{border-top:2px solid var(--tinta)}
+.hub svg{width:100%;height:auto;display:block}
+
+/* ── as três decisões ─────────────────────────────────────────────────── */
+.pedidos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pedido{padding:16px 18px;background:#fff;border:1px solid var(--regra);border-top:4px solid var(--tinta)}
+.pedido .rotulo{display:block;margin-bottom:6px}
+.pedido h3{margin:0 0 6px;font-size:17px;letter-spacing:-.015em}
+.pedido p{margin:0;font-size:13px;color:var(--tinta-2)}
+
+@media (max-width:1180px){
+  .ciclo{grid-template-columns:1fr}
+  .ciclo .modos{display:none}
+  .etapa::after{display:none}
+  .etapa{margin-bottom:8px;min-height:0}
+  .f-coding,.f-deploy,.f-gov,.volta{grid-column:1}
+  .f-gov::before{display:none}
+  .squad,.leituras,.pedidos{grid-template-columns:1fr}
+  .faixa-linha{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="folha">
+
+  <nav id="nav" data-atual="00"></nav>
+
+  <header class="topo">
+    <div>
+      <p class="sobre">Superintendência de Negócios de Nuvem · proposta da NUARQ</p>
+      <h1>Construir, publicar e governar com IA na SUNNU</h1>
+      <p>Três linhas e um ciclo só. <b>Coding</b> leva a ideia até o código revisado, <b>Deploy</b> leva esse código à nuvem de governo ou pública e o mantém de pé, e <b>Governance</b> fica embaixo das duas: toda chamada a modelo passa por um ponto de controle. A cor diz quem conduz cada parte.</p>
+    </div>
+    <dl class="legenda" aria-label="Legenda">
+      <dt><span class="tag depto">departamentos</span></dt><dd>decidem o produto, prototipam e constroem</dd>
+      <dt><span class="tag nuarq">NUARQ</span></dt><dd>conduz o padrão, a plataforma e a verificação</dd>
+      <dt><span class="tag trava">portão</span></dt><dd>ponto em que uma pessoa ou o CI decide se passa</dd>
+      <dt><span class="tag validar">a validar</span></dt><dd>proposta desta prévia, ainda não acordada</dd>
+    </dl>
+  </header>
+
+  <section class="abertura" aria-label="Onde estamos hoje">
+    <div><span class="rotulo">hoje · 1</span><p><b>A IA já é consumida, fora de qualquer controle.</b> Cada equipe usa a ferramenta e a conta que tem à mão; não há trilha, teto de custo nem regra para dado pessoal.</p></div>
+    <div><span class="rotulo">hoje · 2</span><p><b>Cada projeto inventa o próprio processo e a própria infra.</b> Spec, diagrama e código divergem: cada artefato foi verdadeiro em algum momento e nenhum é verdadeiro agora.</p></div>
+    <div><span class="rotulo">hoje · 3</span><p><b>Gerar ficou barato; julgar, não.</b> Pessoas tomam cerca de 70% das decisões de planejamento, o agente cerca de 80% das de execução. O gargalo passou a ser conferir.</p></div>
+  </section>
+  <p class="virada">A resposta é um ciclo só, com <span>um dono para cada parte</span>.</p>
+
+  <!-- ── o ciclo ─────────────────────────────────────────────────────────── -->
+  <section class="ciclo" aria-label="Ciclo de entrega com IA">
+    <div class="modos">
+      <div class="modo depto"><b>Prototyper</b>muitas ideias, a maioria morre cedo</div>
+      <div class="modo depto"><b>Builder</b>escreve a spec que vira produto</div>
+      <div class="modo depto"><b>Builder</b>com o agente, em teste primeiro</div>
+      <div class="modo nuarq"><b>Verificador</b>quem faz não julga</div>
+      <div class="modo nuarq"><b>Maintainer</b>pipeline, contas, plataforma</div>
+      <div class="modo ambos"><b>Builder + Maintainer</b>o produto sobe; a base segura</div>
+      <div class="modo ambos"><b>Grower · Sweeper</b>cresce o que serve, desliga o resto</div>
+    </div>
+
+    <div class="etapa"><span class="n">1</span><h3>Ideia</h3><p>Protótipo descartável antes de qualquer compromisso.</p></div>
+    <div class="etapa gate"><span class="n">2</span><h3>Spec</h3><p>O que e por quê, em arquivo. Uma pessoa aprova e assina.</p></div>
+    <div class="etapa"><span class="n">3</span><h3>Código</h3><p>Plano, branch, TDD. O agente executa, a pessoa decide.</p></div>
+    <div class="etapa gate"><span class="n">4</span><h3>Revisão</h3><p>Contra a spec, não contra o diff. O CI trava o que é regra.</p></div>
+    <div class="etapa gate"><span class="n">5</span><h3>Pipeline</h3><p>Testes, segredos, plano de infra revisado no PR.</p></div>
+    <div class="etapa"><span class="n">6</span><h3>Produção</h3><p>Nuvem de governo ou pública, por classificação do dado.</p></div>
+    <div class="etapa"><span class="n">7</span><h3>Operação</h3><p>SLO, alerta, runbook, custo. Rollback já testado.</p></div>
+
+    <a class="faixa-linha f-coding" href="coding.html">
+      <span class="k">02</span>
+      <div><b>Coding</b><span>Processo próprio, ferramenta descartável. Rigor proporcional ao risco.</span></div>
+      <span class="ir">abrir prancha →</span>
+    </a>
+    <a class="faixa-linha f-deploy" href="deploy.html">
+      <span class="k">03</span>
+      <div><b>Deploy</b><span>Infra, diagrama e ambiente descrevem o mesmo sistema.</span></div>
+      <span class="ir">abrir prancha →</span>
+    </a>
+    <a class="faixa-linha f-gov" href="governance.html">
+      <span class="k">04</span>
+      <div><b>Governance</b><span>Governança como infraestrutura, não como documento. Toda chamada a modelo, do assistente de código ao agente em produção, passa pelo gateway.</span></div>
+      <span class="ir">abrir prancha →</span>
+    </a>
+    <div class="volta">
+      <svg width="34" height="18" viewBox="0 0 34 18" aria-hidden="true"><path d="M32 3 H6 a4 4 0 0 0 0 8 H14" fill="none" stroke="#0A1A2F" stroke-width="2"/><path d="M12 7 l5 4 -5 4" fill="none" stroke="#0A1A2F" stroke-width="2"/></svg>
+      O que a operação aprende volta como ideia, ou como regra: o bug vira teste e o teste vira trava.
+    </div>
+  </section>
+
+  <a class="ponte" href="papeis.html">
+    <div><span class="rotulo">próxima · 01 papéis</span><b>Antes do como, o quem.</b><span class="t">Quem conduz cada modo de trabalho, quem responde por cada atividade e como a força de trabalho e o orçamento de tokens se distribuem entre a NUARQ e os departamentos.</span></div>
+    <span class="ir">01 Papéis →</span>
+  </a>
+
+  <!-- ── o pedido ───────────────────────────────────────────────────────── -->
+  <section class="secao">
+    <h2 id="decisoes">Aonde a história chega: três decisões, uma por linha</h2>
+    <p class="sub">Cada pedido tem escopo fechado e critério de saída. Nada aqui é mandato aberto.</p>
+    <div class="pedidos">
+      <div class="pedido"><span class="rotulo">02 · coding</span><h3>Um processo de engenharia com IA para a SUNNU</h3><p>A constituição e o scaffold SDD da NUARQ passam a ser o processo padrão dos projetos novos da superintendência, com o portal de padrões como referência e a NUARQ como verificadora.</p></div>
+      <div class="pedido"><span class="rotulo">03 · deploy</span><h3>Um caminho único até a produção</h3><p>As contas e a topologia das OCNs (sandbox e serviços) e um pipeline de referência, operados pela NUARQ, para que nenhum produto precise montar a própria base.</p></div>
+      <div class="pedido"><span class="rotulo">04 · governance</span><h3>Piloto de 90 dias do gateway, com gate</h3><p>De 2 a 3 equipes com demanda real e orçamento de IA único atrás do gateway. No dia 90, ou o gate fecha com números ou o piloto encerra.</p></div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <span>Fontes: <code>padroes-engenharia/paginas/pessoas-e-normas.md</code> · <code>serpro-cloud-ia-governance/docs/governanca/arquitetura-governanca-ia.md</code> §7 · <code>sdd-lifecycle/README.md</code></span>
+    <span>Prévia 13/10/2026 · para validação com a gerência da NUARQ</span>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

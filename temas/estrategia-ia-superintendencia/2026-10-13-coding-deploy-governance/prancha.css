@@ -1,0 +1,85 @@
+/* Pranchas executivas: uma tela, uma afirmação, um diagrama.
+   A cor diz quem: azul = NUARQ, âmbar = departamentos, vermelho = limite.
+   Rawline é a fonte do Padrão Digital de Governo (gov.br). */
+@font-face{font-family:"Rawline";font-weight:400;src:url("vendor/rawline/rawline-400.woff2") format("woff2")}
+@font-face{font-family:"Rawline";font-weight:500;src:url("vendor/rawline/rawline-500.woff2") format("woff2")}
+@font-face{font-family:"Rawline";font-weight:600;src:url("vendor/rawline/rawline-600.woff2") format("woff2")}
+@font-face{font-family:"Rawline";font-weight:700;src:url("vendor/rawline/rawline-700.woff2") format("woff2")}
+@font-face{font-family:"Rawline";font-weight:800;src:url("vendor/rawline/rawline-800.woff2") format("woff2")}
+@font-face{font-family:"Rawline";font-weight:900;src:url("vendor/rawline/rawline-900.woff2") format("woff2")}
+
+:root{
+  --papel:#E9EEF3; --papel-2:#DCE3EB; --branco:#F8FAFC;
+  --tinta:#0B1B30; --tinta-2:#46576C; --tinta-3:#7D8C9E; --regra:#C6D0DA;
+  --gov:#1351B4; --gov-2:#0C3A85; --gov-claro:#D4E1F5;
+  --ambar:#A8650C; --ambar-claro:#F2E2C7;
+  --limite:#A83A2C; --limite-claro:#F4DAD5;
+  --verde:#1E7A4C; --verde-claro:#D6EBDF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--papel);color:var(--tinta)}
+body{font-family:"Rawline","Inter",system-ui,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-ligatures:none}
+a{color:var(--gov)}
+:focus-visible{outline:3px solid var(--gov);outline-offset:3px}
+
+/* a tela: cabe num projetor 16:9 sem rolar */
+.tela{max-width:1600px;min-height:100vh;margin:0 auto;padding:0 56px 32px;
+  display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr auto;row-gap:18px}
+
+.tela > *{min-width:0}
+
+/* abas */
+.abas{display:flex;align-items:flex-end;gap:30px;border-bottom:1px solid var(--regra);padding-top:14px;font-size:14px}
+.abas a{padding:8px 0 10px;color:var(--tinta-3);text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-1px;font-weight:500}
+.abas a:hover{color:var(--tinta)}
+.abas a[aria-current]{color:var(--tinta);border-bottom-color:var(--tinta);font-weight:700}
+.abas .anexo{margin-left:auto;font-size:13px;font-weight:500}
+
+/* cabeça: afirmação à esquerda, resposta curta à direita */
+.cabeca{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:56px;align-items:end;padding-top:6px}
+.cabeca h1{margin:0;font-size:50px;line-height:1.04;letter-spacing:-.025em;font-weight:800;max-width:26ch;text-wrap:balance}
+.cabeca .sub{margin:12px 0 0;font-size:18px;color:var(--tinta-2);max-width:62ch;line-height:1.4}
+.chave{border-left:4px solid var(--tinta);padding:4px 0 4px 20px}
+.chave b{display:block;font-size:44px;line-height:1;font-weight:900;letter-spacing:-.03em}
+.chave span{display:block;margin-top:8px;font-size:15px;color:var(--tinta-2);line-height:1.35}
+.chave.gov{border-color:var(--gov)} .chave.gov b{color:var(--gov)}
+
+/* palco do diagrama */
+.palco{min-height:0;display:flex;flex-direction:column;justify-content:center}
+.palco svg{width:100%;height:auto;display:block;max-height:62vh;overflow:visible}
+svg text{font-family:"Rawline","Inter",system-ui,sans-serif}
+svg .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* base: fatos + ponte */
+.base{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;padding-top:16px;border-top:2px solid var(--tinta)}
+.fatos{display:flex;gap:40px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.fatos li{font-size:14.5px;color:var(--tinta-2);max-width:34ch;line-height:1.35}
+.fatos b{color:var(--tinta);font-weight:700}
+.ponte{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--tinta);
+  padding:12px 18px 12px 20px;background:var(--branco);border:2px solid var(--tinta);border-radius:3px}
+.ponte span{font-size:13px;color:var(--tinta-2);display:block}
+.ponte b{font-size:17px;display:block;line-height:1.2}
+.ponte svg{flex:none}
+.ponte:hover{background:var(--tinta);color:#fff}
+.ponte:hover span{color:#C9D4E2}
+.ponte:hover svg path{stroke:#fff}
+
+/* marca de "a validar": discreta, mas sempre visível */
+.validar{font-size:12.5px;font-weight:600;color:var(--tinta-2);padding:2px 7px;border:1px dashed var(--tinta-3);border-radius:2px;white-space:nowrap;
+  background:repeating-linear-gradient(135deg,transparent 0 4px,rgba(125,140,158,.18) 4px 5px)}
+
+@media (max-width:1100px){
+  .tela{padding:0 16px 24px;min-height:0}
+  .cabeca{grid-template-columns:minmax(0,1fr);gap:20px}
+  .cabeca h1{font-size:38px}
+  .cabeca .sub{font-size:17px}
+  .chave b{font-size:34px}
+  .base{grid-template-columns:minmax(0,1fr)}
+  .ponte{justify-self:start}
+  .abas{gap:18px;overflow-x:auto}
+  .palco{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .palco svg{max-height:none;min-width:980px;overflow:hidden}
+}
+@media print{.abas{display:none}.tela{min-height:0}}
