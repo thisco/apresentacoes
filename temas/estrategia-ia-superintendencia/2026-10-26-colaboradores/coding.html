@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desenvolvimento com IA</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+/* seletor A | B */
+.modos{display:flex;gap:0;margin-bottom:14px;border:2px solid var(--tinta);border-radius:4px;width:max-content;max-width:100%;overflow:hidden}
+.modos button{font:inherit;font-size:15px;font-weight:600;padding:10px 18px;border:0;background:var(--branco);color:var(--tinta-2);cursor:pointer;text-align:left;line-height:1.25}
+.modos button + button{border-left:2px solid var(--tinta)}
+.modos button b{font-weight:800;color:var(--tinta);margin-right:6px}
+.modos button small{display:block;font-size:12.5px;font-weight:500;color:var(--tinta-3)}
+.modos button[aria-pressed="true"]{background:var(--tinta);color:#fff}
+.modos button[aria-pressed="true"] b{color:#fff}
+.modos button[aria-pressed="true"] small{color:#C9D4E2}
+.modos button:hover:not([aria-pressed="true"]){background:var(--papel-2)}
+#fluxo[data-modo="a"] .so-b,#fluxo[data-modo="b"] .so-a{display:none}
+.ponto{opacity:0}
+.ponto.ativo{opacity:1}
+.palco svg{max-height:33vh}
+.entregas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.entregas div{background:var(--branco);border:1px solid var(--regra);border-top:4px solid var(--gov);border-radius:3px;padding:10px 14px}
+.entregas b{display:block;font-size:16px;line-height:1.2}
+.entregas span{font-size:13.5px;color:var(--tinta-2)}
+.modos{margin-bottom:8px}
+@media (max-width:1100px){.entregas{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="4"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Desenvolver com IA e de IA, com um guia para quem não é dev</h1>
+      <p class="sub">Os Builders dos departamentos fazem o ciclo completo. A NUARQ entrega o guia, o onboarding, as skills e os padrões, e confere sem entrar na fila do merge.</p>
+    </div>
+    <div class="chave"><b>60 de 60</b><span>a mesma spec, em três agentes de IA diferentes, aprovada em todas as execuções</span></div>
+  </header>
+
+  <section class="palco" aria-label="Duas propostas de onde a NUARQ confere">
+    <div class="entregas">
+      <div><b>Guia de desenvolvimento com IA</b><span>um processo simples, para quem não é dev</span></div>
+      <div><b>Onboarding</b><span>de quem começa do zero e de quem já começou</span></div>
+      <div><b>Skills e repositórios compartilhados</b><span>o que funcionou num projeto serve ao próximo</span></div>
+      <div><b>Padrões para aplicações de IA</b><span>agentes e apps com LLM, do jeito certo</span></div>
+    </div>
+    <div class="modos" role="group" aria-label="Escolha a proposta">
+      <button type="button" data-modo="b" aria-pressed="true"><b>Proposta</b>NUARQ em varredura, depois do merge<small>assíncrona: agentes revisores no PR, NUARQ como Sweeper</small></button>
+      <button type="button" data-modo="a" aria-pressed="false"><b>Alternativa</b>NUARQ no caminho do merge<small>síncrona: vira fila e gargalo</small></button>
+    </div>
+
+    <svg id="fluxo" data-modo="b" viewBox="0 0 1488 345" role="img" aria-labelledby="t2">
+      <title id="t2">Raias de pessoa, agente e NUARQ. Proposta A: a NUARQ revisa antes do merge, e a entrega espera na fila dela. Proposta B: CI e agentes revisores conferem o PR, o departamento faz o merge, e a NUARQ varre os repositórios depois, devolvendo regras novas ao CI.</title>
+      <defs>
+        <marker id="a2r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#A83A2C"/></marker>
+        <marker id="a2g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1351B4"/></marker>
+      </defs>
+
+      <!-- raias -->
+      <rect x="0" y="0" width="1488" height="110" fill="#F2E2C7" opacity=".55"/>
+      <rect x="0" y="116" width="1488" height="110" fill="#DCE3EB" opacity=".7"/>
+      <rect x="0" y="232" width="1488" height="110" fill="#D4E1F5" opacity=".7"/>
+      <g font-weight="800" font-size="18"><text x="20" y="50" fill="#A8650C">Pessoa</text><text x="20" y="166" fill="#46576C">Agente de IA</text><text x="20" y="282" fill="#1351B4">NUARQ</text></g>
+      <g font-size="13.5" fill="#46576C"><text x="20" y="72">Builder do departamento</text><text x="20" y="188">pela conta corporativa</text><text x="20" y="304">padrão, trava e revisão</text></g>
+
+      <!-- fios, atrás das caixas -->
+      <path id="caminho-a" class="so-a" d="M360 55 L470 55 C500 55 495 171 525 171 L740 171 C770 171 770 287 800 287 L1020 287 C1050 287 1050 55 1080 55 L1405 55" fill="none" stroke="#0B1B30" stroke-width="3"/>
+      <path id="caminho-b" class="so-b" d="M360 55 L470 55 C500 55 495 171 525 171 L1020 171 C1050 171 1050 55 1080 55 L1405 55" fill="none" stroke="#0B1B30" stroke-width="3"/>
+      <path id="varredura" class="so-b" d="M1443 92 C1443 200 1440 287 1410 287 L1080 287 C960 287 910 262 910 212" fill="none" stroke="#1351B4" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a2g)"/>
+
+      <!-- nós comuns -->
+      <rect x="250" y="18" width="220" height="74" rx="4" fill="#F8FAFC" stroke="#0B1B30" stroke-width="3"/>
+      <text x="268" y="49" font-size="18" font-weight="800" fill="#0B1B30">Assina a spec</text>
+      <text x="268" y="72" font-size="14" fill="#46576C">o que construir e por quê</text>
+      <rect x="525" y="134" width="215" height="74" rx="4" fill="#F8FAFC" stroke="#7D8C9E" stroke-width="1.8"/>
+      <text x="543" y="165" font-size="18" font-weight="800" fill="#0B1B30">Teste e código</text>
+      <text x="543" y="188" font-size="14" fill="#46576C">em branch, com plano</text>
+      <rect x="1080" y="18" width="220" height="74" rx="4" fill="#F8FAFC" stroke="#0B1B30" stroke-width="3"/>
+      <text x="1098" y="49" font-size="18" font-weight="800" fill="#0B1B30">Aprova o merge</text>
+      <text class="so-a" x="1098" y="72" font-size="14" fill="#46576C">depois do aval da NUARQ</text>
+      <text class="so-b" x="1098" y="72" font-size="14" fill="#46576C">o próprio departamento</text>
+      <rect x="1398" y="18" width="90" height="74" rx="4" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/>
+      <text x="1443" y="51" font-size="15" font-weight="800" fill="#0B1B30" text-anchor="middle">produto</text>
+      <text x="1443" y="71" font-size="15" font-weight="800" fill="#0B1B30" text-anchor="middle">no ar</text>
+
+      <!-- A: NUARQ no caminho -->
+      <g class="so-a">
+        <rect x="800" y="250" width="220" height="74" rx="4" fill="#1351B4"/>
+        <text x="818" y="281" font-size="18" font-weight="800" fill="#fff">NUARQ revisa</text>
+        <text x="818" y="304" font-size="14" fill="#D4E1F5">confere contra a spec</text>
+        <g fill="#1351B4" opacity=".4"><rect x="800" y="330" width="26" height="8"/><rect x="830" y="330" width="26" height="8"/><rect x="860" y="330" width="26" height="8"/><rect x="890" y="330" width="26" height="8"/></g>
+        <text x="924" y="338" font-size="12.5" fill="#1351B4">fila de PRs</text>
+        <path d="M800 306 C700 306 640 272 636 212" fill="none" stroke="#A83A2C" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#a2r)"/>
+        <text x="780" y="336" font-size="13" font-weight="700" fill="#A83A2C" text-anchor="end">devolve com o motivo</text>
+      </g>
+
+      <!-- B: CI e agentes revisores; a NUARQ varre depois -->
+      <g class="so-b">
+        <rect x="800" y="134" width="220" height="74" rx="4" fill="#0B1B30"/>
+        <text x="818" y="165" font-size="17" font-weight="800" fill="#fff">CI e agentes revisores</text>
+        <text x="818" y="188" font-size="14" fill="#C9D4E2">travas e parecer no PR</text>
+        <rect x="1080" y="250" width="320" height="74" rx="4" fill="#1351B4"/>
+        <text x="1098" y="281" font-size="18" font-weight="800" fill="#fff">NUARQ varre os repositórios</text>
+        <text x="1098" y="304" font-size="14" fill="#D4E1F5">corrige por MR, simplifica, cria regra</text>
+        <text x="930" y="244" font-size="13" font-weight="700" fill="#1351B4">regra nova no CI</text>
+        <text x="1432" y="150" font-size="12.5" fill="#1351B4" text-anchor="end">lê o que entrou</text>
+      </g>
+
+      <!-- a entrega que anda -->
+      <circle id="ponto-a" class="ponto so-a" r="9" fill="#A8650C" stroke="#fff" stroke-width="2.5">
+        <animateMotion id="anda-a" begin="indefinite" dur="4.2s" fill="freeze" keyPoints="0;0.5;0.5;1" keyTimes="0;0.38;0.72;1" calcMode="linear"><mpath href="#caminho-a"/></animateMotion>
+      </circle>
+      <circle id="ponto-b" class="ponto so-b" r="9" fill="#A8650C" stroke="#fff" stroke-width="2.5">
+        <animateMotion id="anda-b" begin="indefinite" dur="2.4s" fill="freeze"><mpath href="#caminho-b"/></animateMotion>
+      </circle>
+      <circle id="ponto-v" class="ponto so-b" r="8" fill="#1351B4" stroke="#fff" stroke-width="2.5">
+        <animateMotion id="anda-v" begin="indefinite" dur="2.6s" fill="freeze"><mpath href="#varredura"/></animateMotion>
+      </circle>
+
+    </svg>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Ganho:</b> mais rápido e padronizado; o segundo projeto sai quase copiando o primeiro.</li>
+      <li><b>Já roda</b> no Catálogo SGD Multinuvem: 6 provedores em produção e nenhuma chave estática no CI/CD.</li>
+    </ul>
+    <a class="ponte" href="deploy.html"><div><span>Próxima</span><b>Como chega à produção</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script>
+// Alterna as propostas A e B e faz a entrega percorrer o fluxo uma vez a cada escolha.
+(function () {
+  var svg = document.getElementById("fluxo");
+  var botoes = document.querySelectorAll(".modos button");
+  var parado = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var espera;
+  function anima(modo) {
+    if (parado || !document.getElementById("anda-a").beginElement) return;
+    clearTimeout(espera);
+    if (modo === "a") {
+      document.getElementById("ponto-a").classList.add("ativo");
+      document.getElementById("anda-a").beginElement();
+    } else {
+      var v = document.getElementById("ponto-v");
+      v.classList.remove("ativo");
+      document.getElementById("ponto-b").classList.add("ativo");
+      document.getElementById("anda-b").beginElement();
+      espera = setTimeout(function () {
+        v.classList.add("ativo");
+        document.getElementById("anda-v").beginElement();
+      }, 2600);
+    }
+  }
+  function escolhe(modo) {
+    svg.setAttribute("data-modo", modo);
+    botoes.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.modo === modo)); });
+    anima(modo);
+  }
+  botoes.forEach(function (b) { b.addEventListener("click", function () { escolhe(b.dataset.modo); }); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "a" || e.key === "A") escolhe("a");
+    if (e.key === "b" || e.key === "B" || e.key === "p" || e.key === "P") escolhe("b");
+  });
+  if (location.hash === "#a") escolhe("a"); else setTimeout(function () { anima("b"); }, 400);
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Produto Serpro Multicloud</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+.cabeca h1 .validar{vertical-align:middle;margin-left:14px;font-size:13px;letter-spacing:0}
+/* seletor das três vistas, o mesmo da prancha de Desenvolvimento */
+.modos{display:flex;gap:0;margin-bottom:16px;border:2px solid var(--tinta);border-radius:4px;width:max-content;max-width:100%;overflow:hidden}
+.modos button{font:inherit;font-size:15px;font-weight:600;padding:9px 18px;border:0;background:var(--branco);color:var(--tinta-2);cursor:pointer;text-align:left;line-height:1.25}
+.modos button + button{border-left:2px solid var(--tinta)}
+.modos button b{font-weight:800;color:var(--tinta);margin-right:6px}
+.modos button small{display:block;font-size:12.5px;font-weight:500;color:var(--tinta-3)}
+.modos button[aria-pressed="true"]{background:var(--tinta);color:#fff}
+.modos button[aria-pressed="true"] b{color:#fff}
+.modos button[aria-pressed="true"] small{color:#C9D4E2}
+.modos button:hover:not([aria-pressed="true"]){background:var(--papel-2)}
+.vista[hidden]{display:none}
+
+/* vistas 1 e 2 são diagramas; a 3 é uma linha do tempo */
+.vista svg{width:100%;height:auto;display:block;max-height:52vh;overflow:visible}
+.horizontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0;padding:0;list-style:none;border:1px solid var(--regra);border-radius:3px;background:var(--branco)}
+.horizontes > li{padding:14px 20px 16px;border-top:5px solid var(--tinta);position:relative}
+.horizontes > li + li{border-left:1px solid var(--regra)}
+.horizontes > li.depois{border-top-style:dashed}
+.horizontes > li::before{content:"";position:absolute;left:20px;top:-11px;width:12px;height:12px;border-radius:50%;background:var(--tinta);border:3px solid var(--papel)}
+.horizontes > li.depois::before{background:var(--branco);border-color:var(--tinta);box-shadow:0 0 0 3px var(--papel)}
+.horizontes b{display:block;font-size:22px;font-weight:800;letter-spacing:-.015em;line-height:1.1;margin-top:4px}
+.horizontes b small{font-size:12.5px;font-weight:500;color:var(--tinta-3);margin-left:10px;letter-spacing:0}
+.horizontes ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.horizontes ul li{font-size:13.5px;line-height:1.3;color:var(--tinta-2);padding-left:16px;position:relative}
+.horizontes ul li::before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:50%;background:var(--tinta-3)}
+.horizontes ul li.ar::before{background:var(--verde)}
+.horizontes ul li.nucleo-item::before{background:var(--tinta)}
+.horizontes ul li.nucleo-item{color:var(--tinta);font-weight:600}
+@media (max-width:1100px){.horizontes{grid-template-columns:1fr}.horizontes > li + li{border-left:0;border-top:5px solid var(--tinta)}.vista{overflow-x:auto}.vista svg{min-width:980px;max-height:none}}
+</style>
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="8"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Plataforma Multinuvem como um produto de software: o que construir e quando<span class="validar">proposta a definir</span></h1>
+      <p class="sub">Os pilares dizem como se constrói. Esta prancha muda de altitude e propõe o quê e o quando, para decisão: as seis frentes como módulos de um produto só, um núcleo comum que hoje ninguém constrói, e um ciclo que termina em prestar contas.</p>
+    </div>
+    <div class="chave"><b>1 produto</b><span>seis módulos, um núcleo comum e um dono; o que e quando são decisões de produto, não de arquitetura</span></div>
+  </header>
+
+  <section class="palco" aria-label="Três vistas do produto">
+    <div class="modos" role="group" aria-label="Escolha a vista">
+      <button type="button" data-vista="oque" aria-pressed="true"><b>O quê</b>o ciclo e o núcleo<small>módulos por etapa e o que falta</small></button>
+      <button type="button" data-vista="quem" aria-pressed="false"><b>Para quem</b>o ecossistema<small>o que cada ator pede do produto</small></button>
+      <button type="button" data-vista="quando" aria-pressed="false"><b>Quando</b>os horizontes<small>o que já está em curso e o que falta decidir</small></button>
+    </div>
+
+    <div class="vista" id="v-oque">
+      <svg viewBox="0 0 1488 350" role="img" aria-labelledby="tq">
+        <title id="tq">O ciclo do produto em seis etapas, da descoberta à prestação de contas, com o módulo que serve a cada uma. A última etapa, prestar contas ao cliente e ao TCU, não tem dono. Por baixo, o núcleo comum que nenhuma frente constrói sozinha: identidade única, APIs e eventos, aferição e trilha, base de conhecimento e porta única do cliente.</title>
+        <defs><marker id="apq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#46576C"/></marker></defs>
+        <path d="M0 10 H222 L240 40 L222 70 H0 Z" fill="#0B1B30"/><text x="20" y="47" font-size="18" font-weight="800" fill="#fff">Descobrir</text><text x="20" y="96" font-size="13" fill="#46576C">mercado, preços e concorrentes</text><rect x="0" y="112" width="226" height="58" rx="3" fill="#F2E2C7" stroke="#A8650C" stroke-width="2"/><text x="16" y="147" font-size="15" font-weight="800" fill="#0B1B30">Pesquisa de Mercado</text><text x="0" y="192" font-size="12.5" fill="#7D8C9E">Eli</text><line x1="108" y1="70" x2="108" y2="82" stroke="#C6D0DA" stroke-width="2"/><path d="M248 10 H470 L488 40 L470 70 H248 L266 40 Z" fill="#0B1B30"/><text x="278" y="47" font-size="18" font-weight="800" fill="#fff">Vender</text><text x="278" y="96" font-size="13" fill="#46576C">demanda, proposta, contrato</text><rect x="260" y="112" width="226" height="58" rx="3" fill="#D4E1F5" stroke="#1351B4" stroke-width="2"/><text x="276" y="147" font-size="15" font-weight="800" fill="#0B1B30">Catálogo e Demandas</text><text x="260" y="192" font-size="12.5" fill="#7D8C9E">NUARQ · contrato no GMC</text><line x1="368" y1="70" x2="368" y2="82" stroke="#C6D0DA" stroke-width="2"/><path d="M496 10 H718 L736 40 L718 70 H496 L514 40 Z" fill="#0B1B30"/><text x="526" y="47" font-size="18" font-weight="800" fill="#fff">Entregar</text><text x="526" y="96" font-size="13" fill="#46576C">projeto, OCN, onboarding</text><rect x="508" y="112" width="226" height="58" rx="3" fill="#F2E2C7" stroke="#A8650C" stroke-width="2"/><text x="524" y="147" font-size="15" font-weight="800" fill="#0B1B30">Plataforma de Projetos</text><text x="508" y="192" font-size="12.5" fill="#7D8C9E">NUJOR · OCN e onboard no GMC</text><line x1="616" y1="70" x2="616" y2="82" stroke="#C6D0DA" stroke-width="2"/><path d="M744 10 H966 L984 40 L966 70 H744 L762 40 Z" fill="#0B1B30"/><text x="774" y="47" font-size="18" font-weight="800" fill="#fff">Operar</text><text x="774" y="96" font-size="13" fill="#46576C">consumo, acionamentos, SLA</text><rect x="756" y="112" width="226" height="58" rx="3" fill="#F2E2C7" stroke="#A8650C" stroke-width="2"/><text x="772" y="147" font-size="15" font-weight="800" fill="#0B1B30">Plataforma de Inteligência</text><text x="756" y="192" font-size="12.5" fill="#7D8C9E">Felipe</text><line x1="864" y1="70" x2="864" y2="82" stroke="#C6D0DA" stroke-width="2"/><path d="M992 10 H1214 L1232 40 L1214 70 H992 L1010 40 Z" fill="#0B1B30"/><text x="1022" y="47" font-size="18" font-weight="800" fill="#fff">Faturar</text><text x="1022" y="96" font-size="13" fill="#46576C">aferição, fatura, provedores</text><rect x="1004" y="112" width="226" height="58" rx="3" fill="#F2E2C7" stroke="#A8650C" stroke-width="2"/><text x="1020" y="147" font-size="15" font-weight="800" fill="#0B1B30">GMC</text><text x="1004" y="192" font-size="12.5" fill="#7D8C9E">Flamarion</text><line x1="1112" y1="70" x2="1112" y2="82" stroke="#C6D0DA" stroke-width="2"/><path d="M1240 10 H1462 L1480 40 L1462 70 H1240 L1258 40 Z" fill="#F4DAD5" stroke="#A83A2C" stroke-width="2" stroke-dasharray="7 5"/><text x="1270" y="47" font-size="18" font-weight="800" fill="#A83A2C">Prestar contas</text><text x="1270" y="96" font-size="13" fill="#46576C">ao cliente e ao TCU</text><rect x="1252" y="112" width="226" height="58" rx="3" fill="#F8FAFC" stroke="#A83A2C" stroke-width="2" stroke-dasharray="7 5"/><text x="1268" y="147" font-size="15" font-weight="800" fill="#A83A2C">Em construção</text><text x="1252" y="192" font-size="12.5" fill="#7D8C9E">a definir</text><line x1="1360" y1="70" x2="1360" y2="82" stroke="#C6D0DA" stroke-width="2"/>
+        <g stroke="#46576C" stroke-width="2" marker-end="url(#apq)" marker-start="url(#apq)">
+          <line x1="372" y1="206" x2="372" y2="242"/><line x1="868" y1="206" x2="868" y2="242"/><line x1="1364" y1="206" x2="1364" y2="242"/>
+        </g>
+        <rect x="0" y="246" width="1488" height="96" rx="4" fill="#0B1B30"/>
+        <text x="22" y="286" font-size="20" font-weight="900" fill="#fff">Núcleo comum</text>
+        <text x="22" y="308" font-size="12.5" fill="#C9D4E2">o que nenhuma frente</text><text x="22" y="325" font-size="12.5" fill="#C9D4E2">constrói sozinha</text>
+        <text x="270" y="282" font-size="14.5" font-weight="800" fill="#fff">Identidade única</text><text x="270" y="302" font-size="12.5" fill="#C9D4E2">um ID de cliente e de contrato</text><text x="270" y="319" font-size="12.5" fill="#C9D4E2">que todos os módulos usam</text><text x="514" y="282" font-size="14.5" font-weight="800" fill="#fff">APIs e eventos</text><text x="514" y="302" font-size="12.5" fill="#C9D4E2">módulos conversam por contrato,</text><text x="514" y="319" font-size="12.5" fill="#C9D4E2">nunca por cópia de banco</text><text x="758" y="282" font-size="14.5" font-weight="800" fill="#fff">Aferição e trilha</text><text x="758" y="302" font-size="12.5" fill="#C9D4E2">consumo medido na fonte,</text><text x="758" y="319" font-size="12.5" fill="#C9D4E2">auditável por chamada</text><text x="1002" y="282" font-size="14.5" font-weight="800" fill="#fff">Base de conhecimento</text><text x="1002" y="302" font-size="12.5" fill="#C9D4E2">curada por domínio,</text><text x="1002" y="319" font-size="12.5" fill="#C9D4E2">consumível por agentes</text><text x="1246" y="282" font-size="14.5" font-weight="800" fill="#fff">Porta única do cliente</text><text x="1246" y="302" font-size="12.5" fill="#C9D4E2">pedir, acompanhar, consumir</text><text x="1246" y="319" font-size="12.5" fill="#C9D4E2">e conferir a fatura</text>
+      </svg>
+    </div>
+
+    <div class="vista" id="v-quem" hidden>
+      <svg viewBox="0 0 1488 400" role="img" aria-labelledby="te">
+        <title id="te">O produto Plataforma Multinuvem no centro. À esquerda, o órgão cliente, o TCU e os parceiros de nuvem; à direita, o backoffice Serpro, o portal da Nuvem de Governo e o Estaleiro. Para cada ator, o que ele pede do produto e como está hoje.</title>
+        <defs><marker id="ape" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7D8C9E"/></marker></defs>
+        <rect x="0" y="10" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="0" y="10" width="6" height="116" fill="#A8650C"/><text x="22" y="40" font-size="17" font-weight="800" fill="#0B1B30">Órgão cliente</text><text x="22" y="64" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> um lugar só para pedir, acompanhar o projeto,</text><text x="22" y="82" font-size="13" fill="#0B1B30">ver o consumo e conferir a fatura</text><text x="22" y="108" font-size="12.5" fill="#46576C">hoje: formulário genérico, e-mail e planilha; cada etapa num sistema</text><path d="M450 68 C500 68 500 200 546 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/><rect x="0" y="142" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="0" y="142" width="6" height="116" fill="#A83A2C"/><text x="22" y="172" font-size="17" font-weight="800" fill="#0B1B30">TCU</text><text x="22" y="196" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> preço rastreável, consumo aferido e responsabilidades</text><text x="22" y="214" font-size="13" fill="#0B1B30">claras entre Serpro, provedor e órgão</text><text x="22" y="240" font-size="12.5" fill="#46576C">hoje: o Acórdão 292/2025 cobra governança na contratação centralizada</text><path d="M450 200 C500 200 500 200 546 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/><rect x="0" y="274" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="0" y="274" width="6" height="116" fill="#A8650C"/><text x="22" y="304" font-size="17" font-weight="800" fill="#0B1B30">Parceiros de nuvem</text><text x="22" y="328" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> contratos, créditos, descontos e compromisso de uso</text><text x="22" y="346" font-size="13" fill="#0B1B30">geridos; consumo extraído de cada provedor</text><text x="22" y="372" font-size="12.5" fill="#46576C">hoje: GMC extrai de 8 fontes em 2026; gestão de provedores prevista</text><path d="M450 332 C500 332 500 200 546 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/><rect x="1038" y="10" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1038" y="10" width="6" height="116" fill="#1351B4"/><text x="1060" y="40" font-size="17" font-weight="800" fill="#0B1B30">Backoffice Serpro</text><text x="1060" y="64" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> SIGECON, ERP, GEDIG, SerproData e Login Único</text><text x="1060" y="82" font-size="13" fill="#0B1B30">integrados por API, nunca por cópia</text><text x="1060" y="108" font-size="12.5" fill="#46576C">hoje: cada frente lê a sua cópia; não há ID único de cliente</text><path d="M1038 68 C988 68 988 200 942 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/><rect x="1038" y="142" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1038" y="142" width="6" height="116" fill="#1351B4"/><text x="1060" y="172" font-size="17" font-weight="800" fill="#0B1B30">Nuvem de Governo (portal)</text><text x="1060" y="196" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> o produto próprio no mesmo catálogo, na mesma</text><text x="1060" y="214" font-size="13" fill="#0B1B30">esteira e na mesma fatura das nuvens públicas</text><text x="1060" y="240" font-size="12.5" fill="#46576C">hoje: portal próprio; oferta vendida junto do Multicloud</text><path d="M1038 200 C988 200 988 200 942 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/><rect x="1038" y="274" width="450" height="116" rx="4" fill="#F8FAFC" stroke="#C6D0DA"/><rect x="1038" y="274" width="6" height="116" fill="#1351B4"/><text x="1060" y="304" font-size="17" font-weight="800" fill="#0B1B30">Estaleiro</text><text x="1060" y="328" font-size="13" fill="#0B1B30"><tspan font-weight="800">pede:</tspan> onde os módulos rodam, no padrão de deploy</text><text x="1060" y="346" font-size="13" fill="#0B1B30">da NUARQ</text><text x="1060" y="372" font-size="12.5" fill="#46576C">hoje: Plataforma de Inteligência (14600) e Panorama já nascem nele</text><path d="M1038 332 C988 332 988 200 942 200" fill="none" stroke="#7D8C9E" stroke-width="1.8" marker-end="url(#ape)"/>
+        <rect x="550" y="120" width="388" height="160" rx="4" fill="#0B1B30"/>
+        <text x="574" y="160" font-size="22" font-weight="900" fill="#fff">Plataforma Multinuvem</text>
+        <text x="574" y="182" font-size="13.5" fill="#C9D4E2">o produto, não a soma das frentes</text>
+        <g font-size="13.5" fill="#E9EEF3"><text x="574" y="216">seis módulos no mesmo ciclo</text><text x="574" y="238">um núcleo comum por baixo</text><text x="574" y="260">um dono que decide o quê e o quando</text></g>
+      </svg>
+    </div>
+
+    <div class="vista" id="v-quando" hidden>
+      <ul class="horizontes" aria-label="Três horizontes">
+        <li><b>2026<small>em curso</small></b><ul>
+          <li class="ar">Catálogo e Demandas em produção; integração do catálogo com o GMC</li>
+          <li class="ar">GMC extrai consumo de 8 fontes; onboard</li>
+          <li>Panorama fase 1 (exibir); orçamentador com IA</li>
+          <li>Plataforma de Inteligência: validar e construir a v1</li>
+          <li>Gateway de IA e padrão de deploy</li>
+          <li class="nucleo-item">Decidir o núcleo: ID único e contratos de API</li>
+        </ul></li>
+        <li><b>2027<small>previsto nas frentes</small></b><ul>
+          <li>GMC: gestão de contas no lugar do Gama, OCN, ordens de serviço, calculadora multicloud</li>
+          <li>Panorama fase 2: inserir pelo sistema, não pelo Git</li>
+          <li>Plataforma de Inteligência no ar, com Data Lake e Qlik</li>
+          <li>Base de conhecimento com curadoria por domínio</li>
+          <li class="nucleo-item">Aferição e trilha auditáveis em todos os módulos</li>
+        </ul></li>
+        <li class="depois"><b>Depois<small>a definir</small></b><ul>
+          <li>Porta única do cliente, no lugar do formulário</li>
+          <li>Prestação de contas ao TCU gerada do dado aferido</li>
+          <li>Panorama fase 3: sem o Git por trás</li>
+          <li>Partes do GMC para a SUPAN, quando ela amadurecer</li>
+          <li class="nucleo-item">Gestão de provedores e de clientes como módulos</li>
+        </ul></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Decisões do superintendente:</b> um dono de produto para o Multicloud; quem constrói e quem paga o núcleo comum; qual é a porta de entrada do cliente.</li>
+      <li><b>O que a NUARQ garante:</b> o como. Padrão, pipeline, gateway e base. O quê e o quando ficam com o produto.</li>
+    </ul>
+    <a class="ponte" href="index.html"><div><span>Fecha o ciclo</span><b>Voltar ao contexto</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script>
+// Três vistas do mesmo produto. Teclas: 1 o quê, 2 para quem, 3 quando.
+(function () {
+  var botoes = document.querySelectorAll(".modos button");
+  var vistas = { oque: "v-oque", quem: "v-quem", quando: "v-quando" };
+  function escolhe(v) {
+    Object.keys(vistas).forEach(function (k) { document.getElementById(vistas[k]).hidden = (k !== v); });
+    botoes.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.vista === v)); });
+  }
+  botoes.forEach(function (b) { b.addEventListener("click", function () { escolhe(b.dataset.vista); }); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "1") escolhe("oque"); if (e.key === "2") escolhe("quem"); if (e.key === "3") escolhe("quando");
+  });
+  if (vistas[location.hash.slice(1)]) escolhe(location.hash.slice(1));
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

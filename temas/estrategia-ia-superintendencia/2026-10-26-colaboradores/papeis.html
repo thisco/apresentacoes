@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quem faz o quê</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="3"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>A NUARQ habilita; os departamentos constroem e operam</h1>
+      <p class="sub">Com o agente escrevendo o código, a capacidade de entrega cresce com cada departamento que aprende o caminho, e não com o quadro da NUARQ. Ninguém fica dependente: quem fez uma vez faz a próxima.</p>
+    </div>
+    <div class="chave gov"><b>Cada área paga o seu</b><span>licenças de código, cota no gateway e a própria OCN; a NUARQ paga só a plataforma</span></div>
+  </header>
+
+  <section class="palco" aria-label="Três opções de papel da NUARQ e o fluxo do orçamento">
+    <svg viewBox="0 0 1488 470" role="img" aria-labelledby="t1">
+      <title id="t1">Comparação entre uma área da qual se depende sempre, com todas as ideias numa fila da NUARQ, e uma área habilitadora, em que o departamento faz o primeiro projeto com a NUARQ ao lado e os seguintes sozinho; dois níveis de habilitação: desenvolver e operar. À direita, o custo de IA passa por três canais: contas corporativas dos assistentes de código, o gateway da NUARQ para aplicações e a OCN de cada departamento.</title>
+      <defs>
+        <pattern id="hach" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F8FAFC"/><line x1="0" y1="0" x2="0" y2="8" stroke="#D3DAE2" stroke-width="3"/></pattern>
+        <marker id="s1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0B1B30"/></marker>
+        <marker id="s2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1E7A4C"/></marker>
+      </defs>
+
+      <text x="0" y="22" font-size="17" font-weight="800" fill="#0B1B30">Uma área da qual você sempre depende, ou uma área que habilita?</text>
+
+      <!-- dependência -->
+      <rect x="0" y="40" width="930" height="150" rx="4" fill="url(#hach)" stroke="#7D8C9E" stroke-width="1.5" stroke-dasharray="7 5"/>
+      <text x="20" y="70" font-size="18" font-weight="800" fill="#46576C">Sempre depende</text>
+      <text x="20" y="92" font-size="13.5" fill="#46576C">toda ideia passa pela NUARQ</text>
+      <g font-size="14" font-weight="700" fill="#0B1B30">
+        <rect x="230" y="56" width="120" height="34" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2"/><text x="244" y="78">ideia 1</text>
+        <rect x="230" y="98" width="120" height="34" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2"/><text x="244" y="120">ideia 2</text>
+        <rect x="230" y="140" width="120" height="34" rx="3" fill="#F8FAFC" stroke="#A8650C" stroke-width="2"/><text x="244" y="162">ideia 3, 4, 5…</text>
+      </g>
+      <g stroke="#0B1B30" stroke-width="2" fill="none" marker-end="url(#s1)"><path d="M350 73 C400 73 400 108 446 108"/><path d="M350 115 L446 115"/><path d="M350 157 C400 157 400 122 446 122"/></g>
+      <rect x="450" y="80" width="190" height="70" rx="3" fill="#1351B4"/>
+      <text x="470" y="110" font-size="17" font-weight="800" fill="#fff">NUARQ faz</text>
+      <g fill="#1351B4" opacity=".4"><rect x="450" y="156" width="30" height="8"/><rect x="484" y="156" width="30" height="8"/><rect x="518" y="156" width="30" height="8"/><rect x="552" y="156" width="30" height="8"/></g>
+      <text x="470" y="132" font-size="13" fill="#D4E1F5">fila de projetos</text>
+      <text x="670" y="104" font-size="15" font-weight="800" fill="#A83A2C">gargalo: não há braço</text>
+      <text x="670" y="126" font-size="13.5" fill="#46576C">e cada ideia nova volta</text>
+      <text x="670" y="144" font-size="13.5" fill="#46576C">para a mesma fila</text>
+
+      <!-- habilitadora -->
+      <rect x="0" y="206" width="930" height="186" rx="4" fill="#F8FAFC" stroke="#1351B4" stroke-width="3.5"/>
+      <rect x="0" y="206" width="930" height="30" rx="4" fill="#1351B4"/><rect x="0" y="222" width="930" height="14" fill="#1351B4"/>
+      <text x="20" y="227" font-size="13.5" font-weight="700" fill="#fff">proposta da NUARQ</text>
+      <text x="20" y="266" font-size="18" font-weight="800" fill="#0B1B30">Habilitadora</text>
+      <text x="20" y="288" font-size="13.5" fill="#46576C">ensina a pescar e acompanha</text>
+      <g font-size="14">
+        <rect x="230" y="252" width="200" height="96" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="246" y="278" font-weight="800" fill="#0B1B30">1º projeto</text>
+        <text x="246" y="300" fill="#46576C">departamento faz,</text><text x="246" y="319" fill="#46576C">NUARQ ao lado</text>
+        <rect x="246" y="328" width="76" height="10" fill="#A8650C"/><rect x="324" y="328" width="76" height="10" fill="#1351B4"/>
+        <rect x="470" y="252" width="200" height="96" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="486" y="278" font-weight="800" fill="#0B1B30">2º projeto</text>
+        <text x="486" y="300" fill="#46576C">departamento faz,</text><text x="486" y="319" fill="#46576C">NUARQ revisa de longe</text>
+        <rect x="486" y="328" width="122" height="10" fill="#A8650C"/><rect x="610" y="328" width="30" height="10" fill="#1351B4"/>
+        <rect x="710" y="252" width="200" height="96" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="726" y="278" font-weight="800" fill="#0B1B30">Próximos</text>
+        <text x="726" y="300" fill="#46576C">quase copiar e colar:</text><text x="726" y="319" fill="#46576C">mesmo guia e padrões</text>
+        <rect x="726" y="328" width="154" height="10" fill="#A8650C"/>
+      </g>
+      <g stroke="#0B1B30" stroke-width="2.2" marker-end="url(#s1)"><line x1="430" y1="300" x2="466" y2="300"/><line x1="670" y1="300" x2="706" y2="300"/></g>
+      <text x="230" y="378" font-size="14" font-weight="700" fill="#1E7A4C">a capacidade de entrega cresce com os departamentos</text>
+
+      <!-- dois níveis -->
+      <text x="0" y="428" font-size="15" font-weight="800" fill="#0B1B30">Dois níveis de habilitação</text>
+      <rect x="230" y="408" width="330" height="34" rx="3" fill="#D4E1F5" stroke="#1351B4"/><text x="246" y="430" font-size="14.5" font-weight="700" fill="#0C3A85">para desenvolver: do protótipo ao código</text>
+      <rect x="580" y="408" width="350" height="34" rx="3" fill="#D4E1F5" stroke="#1351B4"/><text x="596" y="430" font-size="14.5" font-weight="700" fill="#0C3A85">para manter e operar: o produto no ar</text>
+
+      <!-- orçamento: três canais -->
+      <text x="990" y="22" font-size="17" font-weight="800" fill="#0B1B30">Por onde passa o custo de IA</text>
+      <rect x="990" y="186" width="124" height="96" rx="3" fill="#0B1B30"/>
+      <text x="1052" y="222" font-size="14.5" font-weight="800" fill="#fff" text-anchor="middle">Superinten-</text>
+      <text x="1052" y="240" font-size="14.5" font-weight="800" fill="#fff" text-anchor="middle">dência</text>
+      <text x="1052" y="264" font-size="12.5" fill="#C9D4E2" text-anchor="middle">aprova o teto</text>
+      <g stroke="#0B1B30" stroke-width="2.2" fill="none" marker-end="url(#s1)">
+        <path d="M1114 210 C1134 210 1134 100 1150 100"/><path d="M1114 234 L1150 234"/><path d="M1114 258 C1134 258 1134 368 1150 368"/>
+      </g>
+      <rect x="1154" y="56" width="334" height="90" rx="4" fill="#F8FAFC" stroke="#7D8C9E" stroke-width="2"/>
+      <text x="1172" y="86" font-size="16" font-weight="800" fill="#0B1B30">Contas corporativas</text>
+      <text x="1172" y="108" font-size="13.5" fill="#46576C">assistentes de código dos Builders</text>
+      <text x="1172" y="127" font-size="13.5" fill="#46576C">licença por pessoa, por departamento</text>
+      <rect x="1154" y="190" width="334" height="90" rx="4" fill="#1351B4"/>
+      <text x="1172" y="220" font-size="16" font-weight="800" fill="#fff">Gateway da NUARQ</text>
+      <text x="1172" y="242" font-size="13.5" fill="#D4E1F5">chats, aplicações e agentes com LLM</text>
+      <text x="1172" y="261" font-size="13.5" fill="#D4E1F5">cota por aplicação, corte no teto</text>
+      <rect x="1154" y="324" width="334" height="90" rx="4" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/>
+      <text x="1172" y="354" font-size="16" font-weight="800" fill="#0B1B30">OCN de cada departamento</text>
+      <text x="1172" y="376" font-size="13.5" fill="#46576C">infraestrutura do produto em nuvem,</text>
+      <text x="1172" y="395" font-size="13.5" fill="#46576C">paga pelo próprio departamento</text>
+      <text x="990" y="446" font-size="14" font-weight="700" fill="#1E7A4C">todo mês, cada área vê o próprio custo nos três canais</text>
+    </svg>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Departamentos</b> prototipam, constroem e fazem crescer. <b>NUARQ</b> verifica, mantém e simplifica. São modos de trabalho, não cargos.</li>
+      <li><b>Não é da NUARQ:</b> virar fila de aprovação, escrever o produto de cada área ou pagar o token que outra consome.</li>
+      <li><b>A NUARQ não escolhe iniciativas.</b> Habilita, define o padrão e acompanha.</li>
+    </ul>
+    <a class="ponte" href="coding.html"><div><span>Próxima</span><b>Desenvolvimento</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

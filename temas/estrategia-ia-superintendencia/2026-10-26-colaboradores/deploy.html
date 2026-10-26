@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deploy em nuvem</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="5"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Cada departamento publica, opera e mantém na sua OCN</h1>
+      <p class="sub">Produção e operação ficam na OCN do próprio departamento, que é dono da conta, publica, opera e paga a infraestrutura. A NUARQ ajuda a orçar e gerar a OCN, entrega o modelo pronto para copiar, o sandbox para validar e o gateway por onde as aplicações chamam modelos de IA.</p>
+    </div>
+    <div class="chave gov"><b>Um padrão</b><span>muitas OCNs, montadas do mesmo jeito, sem cada uma começar do zero</span></div>
+  </header>
+
+  <section class="palco" aria-label="Padrão da NUARQ, OCNs dos departamentos e gateway">
+    <svg viewBox="0 0 1488 440" role="img" aria-labelledby="t3">
+      <title id="t3">À esquerda, a NUARQ mantém o padrão de deploy: pipeline modelo, infra de referência, guardrails e sandbox. No centro, cada departamento tem a própria OCN com pipeline, produção e operação, na nuvem que o dado pede. À direita, as aplicações com LLM chamam modelos pelo gateway de IA da NUARQ.</title>
+      <defs>
+        <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0B1B30"/></marker>
+        <marker id="a3g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1351B4"/></marker>
+      </defs>
+
+      <!-- padrão da NUARQ -->
+      <rect x="0" y="20" width="290" height="400" rx="4" fill="#1351B4"/>
+      <text x="20" y="56" font-size="21" font-weight="900" fill="#fff">NUARQ</text>
+      <text x="20" y="78" font-size="14" fill="#D4E1F5">padrão de deploy</text>
+      <g>
+        <rect x="20" y="94" width="250" height="58" rx="3" fill="#0C3A85"/>
+        <text x="36" y="119" font-size="15.5" font-weight="800" fill="#fff">Orçamento e OCN</text>
+        <text x="36" y="139" font-size="13" fill="#D4E1F5">ajuda a orçar e a gerar a conta</text>
+        <rect x="20" y="158" width="250" height="58" rx="3" fill="#0C3A85"/>
+        <text x="36" y="183" font-size="15.5" font-weight="800" fill="#fff">Pipeline modelo</text>
+        <text x="36" y="203" font-size="13" fill="#D4E1F5">testes, segredos e plano de infra</text>
+        <rect x="20" y="222" width="250" height="58" rx="3" fill="#0C3A85"/>
+        <text x="36" y="247" font-size="15.5" font-weight="800" fill="#fff">Infra de referência</text>
+        <text x="36" y="267" font-size="13" fill="#D4E1F5">IaC e landing zone para copiar</text>
+        <rect x="20" y="286" width="250" height="58" rx="3" fill="#0C3A85"/>
+        <text x="36" y="311" font-size="15.5" font-weight="800" fill="#fff">Guardrails</text>
+        <text x="36" y="331" font-size="13" fill="#D4E1F5">alerta de custo, tags, MFA, trilha</text>
+        <rect x="20" y="350" width="250" height="58" rx="3" fill="#0C3A85"/>
+        <text x="36" y="375" font-size="15.5" font-weight="800" fill="#fff">Sandbox</text>
+        <text x="36" y="395" font-size="13" fill="#D4E1F5">validar com dado sintético</text>
+      </g>
+
+      <!-- copia o modelo -->
+      <g stroke="#1351B4" stroke-width="2.2" stroke-dasharray="6 5" fill="none" marker-end="url(#a3g)">
+        <path d="M290 160 C320 160 320 82 352 82"/><path d="M290 220 L352 220"/><path d="M290 280 C320 280 320 358 352 358"/>
+      </g>
+      <text x="300" y="206" font-size="12.5" fill="#1351B4">copia</text>
+
+      <!-- OCNs dos departamentos -->
+      <g font-size="14.5">
+        <!-- A -->
+        <rect x="356" y="20" width="720" height="124" rx="4" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="374" y="48" font-size="17" font-weight="800" fill="#0B1B30">OCN do Departamento A</text>
+        <text x="1058" y="48" font-size="13" fill="#46576C" text-anchor="end">dado público · nuvem pública homologada</text>
+        <rect x="374" y="64" width="150" height="62" rx="3" fill="#fff" stroke="#7D8C9E"/><text x="390" y="100" font-weight="700" fill="#0B1B30">Pipeline</text>
+        <rect x="554" y="64" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="570" y="100" font-weight="700" fill="#0B1B30">Produção</text>
+        <rect x="734" y="64" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="750" y="100" font-weight="700" fill="#0B1B30">Operação</text>
+        <rect x="914" y="64" width="144" height="62" rx="3" fill="#D4E1F5" stroke="#1351B4" stroke-dasharray="5 4"/><text x="930" y="92" font-weight="700" fill="#0C3A85">App com LLM</text><text x="930" y="112" font-size="12.5" fill="#46576C">chama modelo</text>
+        <!-- B -->
+        <rect x="356" y="158" width="720" height="124" rx="4" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="374" y="186" font-size="17" font-weight="800" fill="#0B1B30">OCN do Departamento B</text>
+        <text x="1058" y="186" font-size="13" fill="#46576C" text-anchor="end">dado pessoal · nuvem de governo</text>
+        <rect x="374" y="202" width="150" height="62" rx="3" fill="#fff" stroke="#7D8C9E"/><text x="390" y="238" font-weight="700" fill="#0B1B30">Pipeline</text>
+        <rect x="554" y="202" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="570" y="238" font-weight="700" fill="#0B1B30">Produção</text>
+        <rect x="734" y="202" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="750" y="238" font-weight="700" fill="#0B1B30">Operação</text>
+        <!-- C -->
+        <rect x="356" y="296" width="720" height="124" rx="4" fill="#F8FAFC" stroke="#A8650C" stroke-width="2.5"/>
+        <text x="374" y="324" font-size="17" font-weight="800" fill="#0B1B30">OCN do Departamento C</text>
+        <text x="1058" y="324" font-size="13" fill="#46576C" text-anchor="end">conforme o dado · Estaleiro</text>
+        <rect x="374" y="340" width="150" height="62" rx="3" fill="#fff" stroke="#7D8C9E"/><text x="390" y="376" font-weight="700" fill="#0B1B30">Pipeline</text>
+        <rect x="554" y="340" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="570" y="376" font-weight="700" fill="#0B1B30">Produção</text>
+        <rect x="734" y="340" width="150" height="62" rx="3" fill="#fff" stroke="#A8650C" stroke-width="2"/><text x="750" y="376" font-weight="700" fill="#0B1B30">Operação</text>
+        <rect x="914" y="340" width="144" height="62" rx="3" fill="#D4E1F5" stroke="#1351B4" stroke-dasharray="5 4"/><text x="930" y="368" font-weight="700" fill="#0C3A85">Agente</text><text x="930" y="388" font-size="12.5" fill="#46576C">chama modelo</text>
+      </g>
+      <g stroke="#0B1B30" stroke-width="2" marker-end="url(#a3)">
+        <line x1="524" y1="95" x2="550" y2="95"/><line x1="704" y1="95" x2="730" y2="95"/>
+        <line x1="524" y1="233" x2="550" y2="233"/><line x1="704" y1="233" x2="730" y2="233"/>
+        <line x1="524" y1="371" x2="550" y2="371"/><line x1="704" y1="371" x2="730" y2="371"/>
+      </g>
+
+      <!-- gateway -->
+      <g stroke="#1351B4" stroke-width="2.2" fill="none" marker-end="url(#a3g)">
+        <path d="M1058 95 C1110 95 1110 180 1150 180"/><path d="M1058 371 C1110 371 1110 270 1150 270"/>
+      </g>
+      <rect x="1154" y="120" width="334" height="200" rx="4" fill="#1351B4"/>
+      <text x="1174" y="156" font-size="21" font-weight="900" fill="#fff">Gateway de IA</text>
+      <text x="1174" y="178" font-size="14" fill="#D4E1F5">operado pela NUARQ</text>
+      <g font-size="14" fill="#fff">
+        <text x="1174" y="210">chave e cota por aplicação</text>
+        <text x="1174" y="234">dado pessoal mascarado</text>
+        <text x="1174" y="258">trilha e custo por chamada</text>
+        <text x="1174" y="282">só modelos homologados</text>
+      </g>
+      <text x="1154" y="352" font-size="13.5" fill="#46576C">Assistentes de código não passam por aqui:</text>
+      <text x="1154" y="371" font-size="13.5" fill="#46576C">usam as contas corporativas dos fornecedores.</text>
+    </svg>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Departamento:</b> dono da OCN; publica, opera e paga a própria infra. <b>NUARQ:</b> padrão, sandbox e gateway.</li>
+      <li><b>O dado decide a nuvem:</b> nuvem de governo, Estaleiro ou nuvem pública homologada <span class="validar">critério a detalhar</span></li>
+      <li><b>Ganho:</b> do protótipo ao ar sem montar a base do zero; operação e manutenção já no padrão.</li>
+    </ul>
+    <a class="ponte" href="governance.html"><div><span>Próxima</span><b>Quem controla a IA</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

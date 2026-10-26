@@ -1,0 +1,155 @@
+/* ── Pranchas: Coding · Deploy · Governance ─────────────────────────────────
+   Mesma gramática das pranchas da NUJOR (papel frio, tinta navy, Inter para a
+   afirmação, JetBrains Mono para a evidência), com uma troca de significado:
+   aqui a cor diz QUEM.
+     azul Gov.br  = NUARQ: padrão, plataforma, verificação (garante)
+     âmbar        = departamentos: produto, protótipo, construção (decide e faz)
+     hachurado    = proposta a validar / ainda não existe
+   ─────────────────────────────────────────────────────────────────────────── */
+:root{
+  --papel:#E8EDF2; --papel-2:#DDE4EC; --papel-3:#F4F7FA;
+  --tinta:#0A1A2F; --tinta-2:#43556B; --tinta-3:#7A8A9D;
+  --regra:#C3CDD8;
+  --gov:#1351B4; --gov-claro:#D3E0F5; --gov-escuro:#0C3A85;
+  --ambar:#B06F12; --ambar-claro:#F3E3C6;
+  --verde:#1E7A4C; --verde-claro:#D5EBDF;
+  --risco:#A83A2C; --risco-claro:#F4DAD5;
+  --incerto:#8C96A3;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--papel);color:var(--tinta)}
+body{font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-ligatures:none}
+a{color:var(--gov)}
+:focus-visible{outline:2px solid var(--gov);outline-offset:2px}
+
+.folha{max-width:1680px;margin:0 auto;padding:22px 48px 40px}
+
+/* ── navegação entre as quatro pranchas ─────────────────────────────────── */
+.nav{display:flex;gap:0;align-items:stretch;border-bottom:1px solid var(--regra);margin-bottom:26px;
+  font-size:12.5px;flex-wrap:wrap}
+.nav a{display:flex;gap:8px;align-items:baseline;padding:8px 18px 9px 0;margin-right:18px;
+  color:var(--tinta-3);text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-1px}
+.nav a b{font-family:"JetBrains Mono",monospace;font-weight:600}
+.nav a:hover{color:var(--tinta)}
+.nav a[aria-current]{color:var(--tinta);border-bottom-color:var(--tinta);font-weight:600}
+.nav .origem{margin-left:auto;color:var(--tinta-3);padding:8px 0}
+
+/* ── cabeçalho ──────────────────────────────────────────────────────────── */
+.topo{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;
+  padding-bottom:24px;border-bottom:2px solid var(--tinta)}
+.topo .sobre{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--tinta-3);
+  letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px}
+.topo h1{margin:0;font-size:50px;line-height:.98;letter-spacing:-.035em;font-weight:800;max-width:19ch}
+.topo p{margin:14px 0 0;font-size:17px;color:var(--tinta-2);max-width:64ch}
+.legenda{display:grid;grid-template-columns:auto 1fr;gap:9px 14px;align-items:center;font-size:13px;
+  color:var(--tinta-2);min-width:360px;margin:0}
+.legenda dd{margin:0}
+
+/* ── marcadores de quem ─────────────────────────────────────────────────── */
+.tag{display:inline-block;font-size:11.5px;font-weight:600;line-height:1;padding:5px 8px;
+  border-radius:2px;white-space:nowrap}
+.tag.nuarq{background:var(--gov);color:#fff;border:2px solid var(--gov)}
+.tag.depto{background:var(--ambar);color:#fff;border:2px solid var(--ambar)}
+.tag.plat{color:var(--gov);border:2px solid var(--gov)}
+.tag.trava{background:var(--tinta);color:#fff;border:2px solid var(--tinta)}
+.tag.orienta{color:var(--ambar);border:1.5px dashed var(--ambar)}
+.tag.validar{color:var(--tinta-2);border:1px solid var(--incerto);
+  background:repeating-linear-gradient(135deg,transparent 0 4px,rgba(140,150,163,.28) 4px 5px)}
+.tag.ok{background:var(--verde-claro);color:var(--verde);border:1px solid var(--verde)}
+.tag.gap{background:var(--risco-claro);color:var(--risco);border:1px solid var(--risco)}
+
+/* ── blocos genéricos ───────────────────────────────────────────────────── */
+.secao{margin-top:30px;padding-top:18px;border-top:2px solid var(--tinta)}
+.secao > h2{margin:0 0 4px;font-size:21px;letter-spacing:-.018em}
+.secao > p.sub{margin:0 0 18px;font-size:13.5px;color:var(--tinta-2);max-width:86ch}
+.rotulo{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3);
+  letter-spacing:.05em;text-transform:uppercase}
+.cartao{background:var(--papel-3);border:1px solid var(--regra);padding:14px 16px;border-radius:2px}
+.cartao h3{margin:0 0 4px;font-size:16px;letter-spacing:-.01em}
+.cartao p{margin:0;font-size:13px;color:var(--tinta-2)}
+.cartao.nuarq{border-left:4px solid var(--gov)}
+.cartao.depto{border-left:4px solid var(--ambar)}
+.cartao.validar{background:repeating-linear-gradient(135deg,var(--papel-3) 0 6px,#EAEEF2 6px 7px)}
+.num{font-size:42px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.num small{font-size:15px;font-weight:600;color:var(--tinta-2);letter-spacing:0;margin-left:4px}
+ul.limpa{list-style:none;margin:0;padding:0}
+ul.limpa li{padding:5px 0;border-top:1px solid var(--regra);font-size:13px;color:var(--tinta-2)}
+ul.limpa li:first-child{border-top:0}
+ul.limpa li b{color:var(--tinta)}
+
+/* fluxo horizontal de passos */
+.fluxo{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:0;align-items:stretch}
+.passo{position:relative;padding:12px 14px 12px 14px;border:1px solid var(--tinta-3);background:var(--papel-3);
+  margin-right:22px}
+.passo:last-child{margin-right:0}
+.passo::after{content:"";position:absolute;right:-22px;top:50%;width:22px;height:2px;background:var(--tinta)}
+.passo::before{content:"";position:absolute;right:-23px;top:calc(50% - 5px);border:6px solid transparent;
+  border-left:8px solid var(--tinta);border-right:0;z-index:1}
+.passo:last-child::after,.passo:last-child::before{display:none}
+.passo .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--tinta-3)}
+.passo h4{margin:2px 0 4px;font-size:15px;letter-spacing:-.01em}
+.passo p{margin:0;font-size:12.5px;color:var(--tinta-2)}
+.passo.humano{border:2px solid var(--tinta)}
+.passo.nuarq{border-top:4px solid var(--gov)}
+.passo.depto{border-top:4px solid var(--ambar)}
+
+.rodape{margin-top:30px;padding-top:12px;border-top:1px solid var(--regra);font-size:12px;color:var(--tinta-3);
+  display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.rodape code{font-size:11.5px}
+
+svg text{font-family:"Inter",system-ui,sans-serif}
+svg .mono{font-family:"JetBrains Mono",monospace}
+
+@media (max-width:1180px){
+  .folha{padding:16px 16px 28px}
+  .topo{grid-template-columns:1fr;gap:20px}
+  .topo h1{font-size:36px}
+  .legenda{min-width:0}
+  .fluxo{grid-auto-flow:row}
+  .passo{margin-right:0;margin-bottom:18px}
+  .passo::after{right:auto;left:50%;top:auto;bottom:-18px;width:2px;height:18px}
+  .passo::before{right:auto;left:calc(50% - 5px);top:auto;bottom:-20px;border:6px solid transparent;
+    border-top:8px solid var(--tinta);border-bottom:0}
+  .nav .origem{display:none}
+}
+@media print{ .folha{padding:12px} .nav{display:none} }
+
+/* ── fio narrativo: abertura, pergunta, minimapa e ponte ────────────────── */
+.abertura{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:26px;border:1px solid var(--tinta)}
+.abertura > div{padding:14px 18px;border-left:1px solid var(--regra);background:var(--papel-3)}
+.abertura > div:first-child{border-left:0}
+.abertura .rotulo{display:block;margin-bottom:6px;color:var(--risco)}
+.abertura p{margin:0;font-size:14px;color:var(--tinta-2)}
+.abertura p b{color:var(--tinta)}
+.virada{margin:14px 0 0;font-size:19px;font-weight:700;letter-spacing:-.015em}
+.virada span{color:var(--gov)}
+
+.pergunta{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-top:22px;
+  padding:14px 18px;background:#fff;border-left:5px solid var(--tinta)}
+.pergunta .rotulo{display:block}
+.pergunta q{font-size:21px;font-weight:700;letter-spacing:-.015em;quotes:"“" "”"}
+.minimapa{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:330px}
+.minimapa i{display:block;height:20px;background:var(--papel-2);border:1px solid var(--regra);
+  font-style:normal;font-size:9.5px;font-family:"JetBrains Mono",monospace;color:var(--tinta-3);text-align:center;line-height:18px}
+.minimapa i.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.minimapa .gov{grid-column:1/-1;height:9px;background:var(--papel-2);border:1px solid var(--regra)}
+.minimapa .gov.on{background:var(--gov);border-color:var(--gov)}
+
+.ponte{margin-top:34px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  padding:18px 22px;background:var(--tinta);color:#fff;text-decoration:none}
+.ponte .rotulo{color:#9FB0C4;display:block;margin-bottom:4px}
+.ponte b{font-size:20px;letter-spacing:-.015em;display:block}
+.ponte span.t{font-size:14px;color:#C9D4E2}
+.ponte .ir{font-size:14px;font-weight:700;border:1px solid rgba(255,255,255,.5);padding:9px 14px;white-space:nowrap}
+.ponte:hover .ir{background:rgba(255,255,255,.12)}
+.ponte.volta-inicio{background:var(--gov)}
+
+@media (max-width:1180px){
+  .abertura{grid-template-columns:1fr}
+  .abertura > div{border-left:0;border-top:1px solid var(--regra)}
+  .pergunta{grid-template-columns:1fr}
+  .minimapa{width:100%}
+  .ponte{grid-template-columns:1fr}
+}

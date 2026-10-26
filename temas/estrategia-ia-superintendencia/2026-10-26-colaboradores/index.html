@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA na SUNNU: o contexto</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+<style>
+.evid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:14px}
+.evid div{background:var(--branco);border:1px solid var(--regra);border-radius:3px;padding:10px 14px}
+.evid b{display:block;font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.05;color:var(--limite)}
+.evid span{display:block;font-size:13.5px;color:var(--tinta);line-height:1.3;margin-top:4px}
+.evid small{display:block;font-size:11.5px;color:var(--tinta-3);margin-top:5px}
+.mapa-riscos{position:relative;width:100%;height:300px;padding:0;isolation:isolate}
+.mapa-riscos .conexoes{position:absolute;inset:0;width:100%;height:100%;max-height:none;min-width:0;overflow:visible;pointer-events:none;z-index:0}
+.risk-card{position:absolute;z-index:1;display:flex;align-items:center;gap:12px;width:24.0927%;height:88px;margin:0;padding:14px 16px;background:var(--branco);border:1px solid var(--regra);border-left:5px solid var(--limite);border-radius:4px;box-shadow:0 2px 0 rgba(11,27,48,.06);color:var(--tinta);font-size:17px;font-weight:800;line-height:1.16;letter-spacing:-.01em}
+.risk-card svg{width:28px;height:28px;min-width:28px;max-height:none;stroke:var(--limite);stroke-width:2.1;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.padrao{left:0;top:4px}.manter{left:0;top:208px}.producao{left:33.7366%;top:4px}.revisao{left:33.7366%;top:208px}.custo{left:33.7366%;top:106px}.escalar{left:75.9073%;top:106px}.sombra{left:75.9073%;top:4px}.seguro{left:75.9073%;top:208px}
+@media (max-width:1100px){.evid{grid-template-columns:1fr 1fr}.mapa-riscos{min-width:980px}}
+</style>
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="0"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Gerar ficou "barato".<br>O problema agora é outro...</h1>
+      <p class="sub">Muitas ideias em andando com IA.</p>
+    </div>
+  </header>
+
+  <section class="palco" aria-label="Mapa de riscos de engenharia e entrega">
+    <div class="mapa-riscos" aria-label="Riscos que surgem sem padrão, revisão e operação">
+      <svg class="conexoes" viewBox="0 0 1488 300" preserveAspectRatio="none" aria-hidden="true">
+        <defs><marker id="seta-risco" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#A83A2C"/></marker></defs>
+        <path d="M179.25 92 V208" fill="none" stroke="#F8FAFC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M179.25 92 V208" fill="none" stroke="#A83A2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#seta-risco)"/>
+        <path d="M860.5 232 H1000 V150 H1129.5" fill="none" stroke="#F8FAFC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M860.5 232 H1000 V150 H1129.5" fill="none" stroke="#A83A2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#seta-risco)"/>
+        <path d="M860.5 272 H1000 V252 H1129.5" fill="none" stroke="#F8FAFC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M860.5 272 H1000 V252 H1129.5" fill="none" stroke="#A83A2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#seta-risco)"/>
+      </svg>
+      <article class="risk-card padrao"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7v5H4zM13 14h7v5h-7zM11 7h3M12.5 7v7"/></svg><span>Pouco ou nenhum padrão</span></article>
+      <article class="risk-card revisao"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5 4 12l4 7M16 5l4 7-4 7M10 18l4-12M7 16l2 2 5-5"/></svg><span>Código sem revisão</span></article>
+      <article class="risk-card producao"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h13a3 3 0 0 0 .4-6A6 6 0 0 0 7 9.5 3.8 3.8 0 0 0 5 17zM12 18V8M9 11l3-3 3 3"/></svg><span>Como colocar no ar?</span></article>
+      <article class="risk-card custo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7M3 19h18M10 8h4M10 12h4"/></svg><span>Quanto vamos gastar?</span></article>
+      <article class="risk-card manter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a5 5 0 0 0-6 6L4 16l4 4 4.5-4.5a5 5 0 0 0 6-6l-3 3-3-3z"/></svg><span>Difículdade de manter</span></article>
+      <article class="risk-card sombra"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12v11H4zM8 9h12v10H8z"/></svg><span>Sombreamento de Iniciativas</span></article>
+      <article class="risk-card escalar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18 18 5M11 5h7v7M5 12v6h6"/></svg><span>Vai escalar?</span></article>
+      <article class="risk-card seguro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.5-3 7.4-7 10-4-2.6-7-5.5-7-10V6zM9 11v4h6v-4a3 3 0 0 0-6 0z"/></svg><span>Tá seguro?</span></article>
+    </div>
+
+    <div class="evid" aria-label="Evidências">
+      <div><b>45%</b><span>do código gerado por IA trouxe falha de segurança</span><small>Veracode, 100+ modelos, jul. 2025</small></div>
+      <div><b>8×</b><span>mais blocos de código duplicado em 2024</span><small>GitClear, 211 mi de linhas, 2025</small></div>
+      <div><b>40%</b><span>receberam workslop no último mês; ~2 h perdidas por caso</span><small>BetterUp e Stanford, 2025</small></div>
+      <div><b>19%</b><span>mais lentos com IA, achando que estavam mais rápidos</span><small>METR, devs experientes, jul. 2025</small></div>
+      <div><b>curl</b><span>encerrou o programa de recompensa por excesso de relatórios slop</span><small>The New Stack, jan. 2026</small></div>
+    </div>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Premissa:</b> não podemos nem devemos barrar as iniciativas.</li>
+      <li><b>A resposta não é gerar menos.</b> É dar padrão, conferência e operação ao que se gera.</li>
+    </ul>
+    <a class="ponte" href="iniciativas.html"><div><span>Próxima</span><b>O que já anda nas áreas</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>

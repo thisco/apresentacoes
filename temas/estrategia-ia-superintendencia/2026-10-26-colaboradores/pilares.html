@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Os quatro pilares</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="prancha.css">
+</head>
+<body>
+<main class="tela">
+  <nav id="abas" data-atual="2"></nav>
+
+  <header class="cabeca">
+    <div>
+      <h1>Quatro pilares, com a base de conhecimento por baixo</h1>
+      <p class="sub">Desenvolvimento e Deploy levam a ideia até o ar. A Governança atravessa os dois, com custo e segurança. A Base de Conhecimento sustenta tudo: alimenta cada iniciativa e é alimentada por ela.</p>
+    </div>
+    <div class="chave"><b>4 pilares</b><span>a NUARQ habilita os quatro; os departamentos usam e constroem</span></div>
+  </header>
+
+  <section class="palco" aria-label="Os quatro pilares">
+    <svg viewBox="0 0 1488 440" role="img" aria-labelledby="tp">
+      <title id="tp">Em cima, Desenvolvimento leva a Deploy. No meio, a faixa de Governança atravessa os dois. Embaixo, a Base de Conhecimento sustenta os três, com setas que sobem e descem.</title>
+      <defs>
+        <marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0B1B30"/></marker>
+        <marker id="apb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#46576C"/></marker>
+      </defs>
+
+      <!-- desenvolvimento -->
+      <rect x="0" y="0" width="700" height="196" rx="4" fill="#F8FAFC" stroke="#0B1B30" stroke-width="2.5"/>
+      <text x="24" y="40" font-size="26" font-weight="900" fill="#0B1B30">Desenvolvimento</text>
+      <text x="24" y="64" font-size="15" fill="#46576C">com IA e de IA: boas práticas, skills, padrões de arquitetura</text>
+      <g font-size="15" fill="#0B1B30">
+        <text x="24" y="104">▪ Guia de desenvolvimento com IA</text>
+        <text x="24" y="132">▪ Onboarding: do zero ou já começado</text>
+        <text x="24" y="160">▪ Skills e repositórios compartilhados</text>
+        <text x="400" y="104">▪ Padrões para aplicações de IA</text>
+        <text x="400" y="132">▪ Revisão por agentes no PR</text>
+      </g>
+      <line x1="700" y1="98" x2="780" y2="98" stroke="#0B1B30" stroke-width="3" marker-end="url(#ap)"/>
+      <!-- deploy -->
+      <rect x="788" y="0" width="700" height="196" rx="4" fill="#F8FAFC" stroke="#0B1B30" stroke-width="2.5"/>
+      <text x="812" y="40" font-size="26" font-weight="900" fill="#0B1B30">Deploy</text>
+      <text x="812" y="64" font-size="15" fill="#46576C">operação e manutenção, na OCN de cada departamento</text>
+      <g font-size="15" fill="#0B1B30">
+        <text x="812" y="104">▪ Padrão de deploy: pipeline e infra modelo</text>
+        <text x="812" y="132">▪ Ajuda para orçar e gerar a OCN</text>
+        <text x="812" y="160">▪ Onboarding para operar os serviços</text>
+        <text x="1170" y="104">▪ Guardrails de nuvem</text>
+        <text x="1170" y="132">▪ Sandbox para validar</text>
+      </g>
+
+      <!-- governança atravessa -->
+      <rect x="0" y="214" width="1488" height="84" rx="4" fill="#1351B4"/>
+      <text x="24" y="250" font-size="26" font-weight="900" fill="#fff">Governança</text>
+      <text x="24" y="278" font-size="15" fill="#D4E1F5">custos e segurança, atravessando os dois</text>
+      <g font-size="16" font-weight="700" fill="#fff">
+        <text x="560" y="264">Controle de acesso</text>
+        <text x="790" y="264">Visibilidade e orçamento de custo</text>
+        <text x="1150" y="264">Guardrails</text>
+      </g>
+
+      <!-- base de conhecimento: fundação -->
+      <g stroke="#46576C" stroke-width="2" marker-end="url(#apb)" marker-start="url(#apb)">
+        <line x1="350" y1="304" x2="350" y2="340"/><line x1="1138" y1="304" x2="1138" y2="340"/>
+      </g>
+      <rect x="0" y="346" width="1488" height="94" rx="4" fill="#0B1B30"/>
+      <text x="24" y="384" font-size="26" font-weight="900" fill="#fff">Base de Conhecimento</text>
+      <text x="24" y="412" font-size="15" fill="#C9D4E2">a fundação: cada domínio com o seu curador</text>
+      <g font-size="15" fill="#E9EEF3">
+        <text x="560" y="398">padrões · propostas · contratos · projetos · horas executadas · ativos das iniciativas</text>
+      </g>
+    </svg>
+  </section>
+
+  <footer class="base">
+    <ul class="fatos">
+      <li><b>Uma prancha por pilar</b> a seguir, cada uma com o que a SUNNU ganha.</li>
+      <li><b>Não barrar iniciativas:</b> os pilares dão caminho a elas, não fecham a porta.</li>
+    </ul>
+    <a class="ponte" href="papeis.html"><div><span>Próxima</span><b>Quem faz o quê</b></div>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#0B1B30" stroke-width="2.4"/></svg></a>
+  </footer>
+</main>
+<script src="nav.js"></script>
+</body>
+</html>
